@@ -1,16 +1,14 @@
 #!/usr/bin/python
 
-import ttk
 from Tkinter import *
-from ttk import *
-import random
 import threading
-from widgets import ConfigurableTextBoxWidget
+from XmlParser import XmlParser
+from Constants import *
 
 
 class RobotGUI(threading.Thread):
-    box1 = ""
-    data = {"heading": 0, 'test4': 0, 'tor': 0}
+    filledDataPass = {}
+    dataPassDictionary = {}
 
     def __init__(self, guiName):
         self.guiName = guiName
@@ -21,26 +19,25 @@ class RobotGUI(threading.Thread):
     def run(self):
         # Init the window
         self.window = Tk()
-        self.window.title(self.guiName)
         self.window.geometry('1920x1080')
 
-        # Create tabs
-        tab_control = ttk.Notebook(self.window)
-        tab1 = ttk.Frame(tab_control)
-        tab2 = ttk.Frame(tab_control)
-        tab_control.add(tab1, text='Dashboard')
-        tab_control.add(tab2, text='Settings')
+        self.parser = XmlParser(Constants.FILE_NAME, self.window)
+        self.allWidgetsList = self.parser.getAllWidgetsList()
+        self.dataPassDictionary = self.parser.getDataPassDictionary()
 
-        configInfo = [['Heading', 'heading'], ['Battery', 'test4'], ['aslkd', 'tor'], ['eee', 'test4']]
-        a = {"title": "Robot Information", "tab": tab1, "font": "Arial", "xPos": 5, "yPos": 5, "config": configInfo}
-
-        self.Box1 = ConfigurableTextBoxWidget.ConfigurableTextBoxWidget(a)
-
-        tab_control.pack(expand=1, fill='both')
         self.window.after(100, self.updateInfo)
         self.window.mainloop()
 
     def updateInfo(self):
-        self.Box1.updateInfo(self.data)
+        #print(self.allWidgetsList)
+        for widget in self.allWidgetsList:
+            widget.updateInfo(self.filledDataPass)
+        self.window.after(50, self.updateInfo)
 
-        self.window.after(100, self.updateInfo)
+    def getDataPassDictionary(self):
+        return self.dataPassDictionary
+
+    def setDataPassDictionary(self, data):
+        self.filledDataPass = data
+
+
