@@ -1,0 +1,24 @@
+<!--Basic test config-->
+
+<window title = "Probot Control">
+    <tab title = "Dashboard">
+        <widget title = "Power Stats" type = "TextBox" x = "100" y = "100" font = "Arial">
+	        <line label = "Battery Voltage" value = "batteryVoltage"/>
+            <line label = "5v Bus Voltage" value = "5vVoltage"/>
+            <line label = "3.3v Bus Voltage" value = "3.3vVoltage"/>
+            <line label = "Current Draw" value = "current"/>
+        </widget>
+        <widget title = "A">
+        </widget>
+        <widget title = "A">
+        </widget>
+    </tab>
+    <tab title = "Settings">
+        <widget title = "Power Stats2" type = "TextBox" x = "100" y = "100" font = "Arial">
+	        <line label = "Battery Voltage2" value = "batteryVoltage"/>
+            <line label = "5v Bus Voltage2" value = "5vVoltage"/>
+            <line label = "3.3v Bus Voltage2" value = "3.3vVoltage"/>
+            <line label = "Current Draw2" value = "current"/>
+        </widget>
+    </tab>
+</window>
