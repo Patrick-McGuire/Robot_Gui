@@ -2,13 +2,10 @@
 
 import RobotGUI
 
+a = RobotGUI.RobotGUI("Nathan Is Pretty")
 
-
-a = RobotGUI.RobotGUI("Nathan Sucks")
-
-
-while(True):
+while (True):
     b = raw_input("Enter something: ")
+    c = raw_input("Enter something else: ")
 
-
-    a.dataPass = b
+    a.data = {"heading": b, 'test4': c, 'tor': 0}
