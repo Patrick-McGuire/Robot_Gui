@@ -4,19 +4,26 @@ import ttk
 from Tkinter import *
 from ttk import *
 import random
-import DataPass
+import threading
 
-class RobotGUI:
-    window = Tk()
-    allWidgetInfo = []
-    allWidgets = []
+class RobotGUI(threading.Thread):
 
-    def __init__(self, guiName, dataPass):
-        self.dataPass = dataPass
+    def __init__(self, guiName):
+        self.dataPass = ""
+        self.guiName = guiName
+
+        threading.Thread.__init__(self)
+        self.start()
+
+
+    def run(self):
         # Init the window
-
-        self.window.title(guiName)
+        self.window = Tk()
+        self.window.title(self.guiName)
         self.window.geometry('1920x1080')
+
+        self.allWidgetInfo = []
+        self.allWidgets = []
 
         # Create tabs
         tab_control = ttk.Notebook(self.window)
@@ -51,11 +58,11 @@ class RobotGUI:
         widget = event.widget
         x = widget.winfo_x() - widget._drag_start_x + event.x
         y = widget.winfo_y() - widget._drag_start_y + event.y
-        widget.place(x=x, y=y)
+        widget.place(x = x, y = y)
 
     def updateInfo(self):
-        data = self.dataPass.get()
+        data = self.dataPass
         for x in range(0, len(self.allWidgetInfo)):
             self.allWidgetInfo[x][1].set("{0}{1}".format(data, str(random.randint(0, 10))))
-        self.window.after(60, self.updateInfo)
+        self.window.after(100, self.updateInfo)
 

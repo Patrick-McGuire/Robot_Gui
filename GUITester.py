@@ -1,20 +1,14 @@
 #!/usr/bin/python
 
-import threading
 import RobotGUI
-from DataPass import DataPass
 
 
-dataPass = DataPass()
 
-def threadFunction():
-    print("Hi")
-    while(True):
-        b = raw_input("Enter something: ")
-        dataPass.set(b)
+a = RobotGUI.RobotGUI("Nathan Sucks")
 
 
-x = threading.Thread(target = threadFunction, name='t1')
-x.start()
+while(True):
+    b = raw_input("Enter something: ")
 
-a = RobotGUI.RobotGUI("Nathan Sucks", dataPass)
+
+    a.dataPass = b
