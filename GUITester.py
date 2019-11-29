@@ -19,3 +19,6 @@ while (True):
 
     a.setDataPassDictionary(c)
     time.sleep(.05)
+
+    if(not a.is_alive()):
+        break

@@ -33,6 +33,10 @@ class RobotGUI(threading.Thread):
         for widget in self.allWidgetsList:
             widget.updateInfo(self.filledDataPass)
         self.window.after(50, self.updateInfo)
+        for i in threading.enumerate():
+            if i.name == "MainThread":
+                if not i.is_alive():
+                    self.window.destroy()
 
     def getDataPassDictionary(self):
         return self.dataPassDictionary
