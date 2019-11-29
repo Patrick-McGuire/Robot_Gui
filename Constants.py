@@ -26,7 +26,5 @@ class Constants:
     V33_VOLTAGE_VALUE = "v33Voltage"
     CURRENT_VALUE = "current"
 
-    FILE_NAME = "config/BasicConfig.xml"
-
     def __init__(self):
         pass

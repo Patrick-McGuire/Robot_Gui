@@ -9,10 +9,10 @@ from Constants import *
 class RobotGUI(threading.Thread):
     filledDataPass = {}
     dataPassDictionary = {}
+    filePath = ""
 
-    def __init__(self, guiName):
-        self.guiName = guiName
-
+    def __init__(self, filePath):
+        self.filePath = filePath
         threading.Thread.__init__(self)
         self.start()
 
@@ -21,7 +21,7 @@ class RobotGUI(threading.Thread):
         self.window = Tk()
         self.window.geometry('1920x1080')
 
-        self.parser = XmlParser(Constants.FILE_NAME, self.window)
+        self.parser = XmlParser(self.filePath, self.window)
         self.allWidgetsList = self.parser.getAllWidgetsList()
         self.dataPassDictionary = self.parser.getDataPassDictionary()
 

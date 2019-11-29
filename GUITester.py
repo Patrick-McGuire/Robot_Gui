@@ -5,7 +5,7 @@ from Constants import *
 import random
 import time
 
-a = RobotGUI.RobotGUI("Nathan Is Pretty")
+a = RobotGUI.RobotGUI("config/BasicConfig.xml")
 time.sleep(1)
 c = a.getDataPassDictionary()
 
