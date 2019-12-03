@@ -20,11 +20,18 @@ class Constants:
     Y_POS_ATTRIBUTE = "y"
     HIDDEN_ATTRIBUTE = "hidden"
     DRAGGABLE_ATTRIBUTE = "draggable"
-
+    FOREGROUND_ATTRIBUTE = "foreground"
+    BACKGROUND_ATTRIBUTE = "background"
+    BORDER_WIDTH_ATTRIBUTE = "borderwidth"
+    RELIEF_ATTRIBUTE = "relief"
+    WIDTH_ATTRIBUTE = "width"
+    HEIGHT_ATTRIBUTE = "height"
+    # ATTRIBUTE
     BATTERY_VOLTAGE_VALUE = "batteryVoltage"
     V5_VOLTAGE_VALUE = "v5Voltage"
     V33_VOLTAGE_VALUE = "v33Voltage"
     CURRENT_VALUE = "current"
+
 
     def __init__(self):
         pass

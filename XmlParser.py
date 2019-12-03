@@ -25,10 +25,15 @@ class XmlParser:
             self.dataPassDictionary[value] = 0
 
 
-        # Get the title from the file
+        # Get the title and other info from the file
         self.windowName = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
             Constants.TITTLE_ATTRIBUTE)
+        windowHeight = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
+             Constants.HEIGHT_ATTRIBUTE)
+        windowWidth = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
+            Constants.WIDTH_ATTRIBUTE)
 
+        self.window.geometry(windowWidth + "x" + windowHeight)
         self.window.title(self.windowName)
 
         # Stuff
@@ -51,13 +56,17 @@ class XmlParser:
         self.tab_control.pack(expand=1, fill='both')
 
     def createWidget(self, widget, tab):
-        title = widget.getAttribute(Constants.TITTLE_ATTRIBUTE)
-        font = widget.getAttribute(Constants.FONT_ATTRIBUTE)
-        fontSize = widget.getAttribute(Constants.FONT_SIZE_ATTRIBUTE)
-        xpos = widget.getAttribute(Constants.X_POS_ATTRIBUTE)
-        ypos = widget.getAttribute(Constants.Y_POS_ATTRIBUTE)
-        hidden = widget.getAttribute(Constants.HIDDEN_ATTRIBUTE) == "True"
-        draggable = widget.getAttribute(Constants.DRAGGABLE_ATTRIBUTE) == "True"
+        title =           self.getAttribute(widget, Constants.TITTLE_ATTRIBUTE, "Error: no tittle")
+        font =            self.getAttribute(widget, Constants.FONT_ATTRIBUTE, "Arial")
+        fontSize =        self.getAttribute(widget, Constants.FONT_SIZE_ATTRIBUTE, "20")
+        xpos =            self.getAttribute(widget, Constants.X_POS_ATTRIBUTE, "0")
+        ypos =            self.getAttribute(widget, Constants.Y_POS_ATTRIBUTE, "0")
+        foregroundColor = self.getAttribute(widget, Constants.FOREGROUND_ATTRIBUTE, "Black")
+        backgroundColor = self.getAttribute(widget, Constants.BACKGROUND_ATTRIBUTE, "Light Grey")
+        hidden =          self.getAttribute(widget, Constants.HIDDEN_ATTRIBUTE, "False") == "True"
+        draggable =       self.getAttribute(widget, Constants.DRAGGABLE_ATTRIBUTE, "True") == "True"
+        borderwidth =     self.getAttribute(widget, Constants.BORDER_WIDTH_ATTRIBUTE, "4")
+        relief =          self.getAttribute(widget, Constants.RELIEF_ATTRIBUTE, "raised")
 
         widgetInfo = {
             Constants.TITTLE_ATTRIBUTE : title,
@@ -67,7 +76,11 @@ class XmlParser:
             Constants.X_POS_ATTRIBUTE : xpos,
             Constants.Y_POS_ATTRIBUTE : ypos,
             Constants.HIDDEN_ATTRIBUTE : hidden,
-            Constants.DRAGGABLE_ATTRIBUTE : draggable
+            Constants.DRAGGABLE_ATTRIBUTE : draggable,
+            Constants.FOREGROUND_ATTRIBUTE : foregroundColor,
+            Constants.BACKGROUND_ATTRIBUTE : backgroundColor,
+            Constants.BORDER_WIDTH_ATTRIBUTE : borderwidth,
+            Constants.RELIEF_ATTRIBUTE : relief
         }
 
         type = widget.getAttribute(Constants.TYPE_ATTRIBUTE)
@@ -80,7 +93,13 @@ class XmlParser:
                 self.configInfo.append([label, value])
 
             widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
-            self.allWidgetsList.append(ConfigurableTextBoxWidget.ConfigurableTextBoxWidget(widgetInfo))
+            self.allWidgetsList.append(ConfigurableTextBoxWidget.ConfigurableTextBoxWidget(widgetInfo, self.window))
+
+    def getAttribute(self, xmlClip, attribute, defult):
+        data = xmlClip.getAttribute(attribute)
+        if(data == ""):
+            return defult
+        return data
 
     def getDataPassDictionary(self):
         return self.dataPassDictionary

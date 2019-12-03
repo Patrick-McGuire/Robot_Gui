@@ -1,8 +1,8 @@
 <!--Basic test config-->
 
-<window title = "Probot Control">
+<window title = "Probot Control" width = "1920" height = "1080">
     <tab title = "Dashboard">
-        <widget title = "Power Stats" type = "ConfigurableTextBox" x = "500" y = "500" font = "Arial" fontsize = "20" hidden = "False" draggable = "True">
+        <widget title = "Power Stats" type = "ConfigurableTextBox" x = "500" y = "500" font = "Arial" fontsize = "20" background = "Red" foreground = "Yellow" relief = "solid" borderwidth = "4" hidden = "False" draggable = "True">
 	        <line label = "Battery Voltage" value = "batteryVoltage"/>
             <line label = "5v Bus Voltage" value = "v5Voltage"/>
             <line label = "3.3v Bus Voltage" value = "v33Voltage"/>

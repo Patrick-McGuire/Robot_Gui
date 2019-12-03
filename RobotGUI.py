@@ -19,7 +19,6 @@ class RobotGUI(threading.Thread):
     def run(self):
         # Init the window
         self.window = Tk()
-        self.window.geometry('1920x1080')
 
         self.parser = XmlParser(self.filePath, self.window)
         self.allWidgetsList = self.parser.getAllWidgetsList()

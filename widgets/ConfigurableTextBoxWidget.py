@@ -8,7 +8,9 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
     widgetTitle = ""
     configInfo = []
 
-    def __init__(self, configDict):
+    def __init__(self, configDict, window):
+        self.window = window
+
         title = configDict[Constants.TITTLE_ATTRIBUTE] + "\n"
         tab = configDict[Constants.TAB_ATTRIBUTE]
         font = configDict[Constants.FONT_ATTRIBUTE]
@@ -17,6 +19,10 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
         ypos = configDict[Constants.Y_POS_ATTRIBUTE]
         hidden = configDict[Constants.HIDDEN_ATTRIBUTE]
         draggabe = configDict[Constants.DRAGGABLE_ATTRIBUTE]
+        foregroundColor = configDict[Constants.FOREGROUND_ATTRIBUTE]
+        backgroundColor = configDict[Constants.BACKGROUND_ATTRIBUTE]
+        borderwidth = int(configDict[Constants.BORDER_WIDTH_ATTRIBUTE])
+        relief = configDict[Constants.RELIEF_ATTRIBUTE]
 
         self.configInfo = configDict[Constants.CONFIG_ATTRIBUTE]
 
@@ -25,11 +31,11 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
         self.nameVar = StringVar()
         self.updateInfo(0)
 
-        self.widget = Label(tab, textvariable=self.nameVar, borderwidth=4, relief="raised", font=(font, fontSize))
+        self.widget = Label(tab, textvariable=self.nameVar, borderwidth=borderwidth, relief=relief, background=backgroundColor, foreground=foregroundColor, font=(font, fontSize))
         self.widget.grid(column=0, row=0)
         self.widget.place(x=xpos, y=ypos)
 
-        CustomBaseWidget.__init__(self, self.widget, draggabe, xpos, ypos)
+        CustomBaseWidget.__init__(self, self.widget, draggabe, xpos, ypos, window)
 
         self.makeDraggable()
         if(hidden):
