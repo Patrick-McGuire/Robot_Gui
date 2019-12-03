@@ -26,14 +26,16 @@ class CustomBaseWidget:
             widget = event.widget
             x = widget.winfo_x() - widget._drag_start_x + event.x
             y = widget.winfo_y() - widget._drag_start_y + event.y
-            if(x < 0):
-                x = 0
+
             if(x > self.window.winfo_width() - self.widget.winfo_width()):
                 x = self.window.winfo_width() -self.widget.winfo_width()
-            if(y < 0):
-                y = 0
+            if (x < 0):
+                x = 0
             if(y > self.window.winfo_height() - self.widget.winfo_height() - 25):
                 y = self.window.winfo_height() - self.widget.winfo_height() - 25
+            if (y < 0):
+                y = 0
+
             self.xPos = x
             self.yPos = y
             widget.place(x=x, y=y)
