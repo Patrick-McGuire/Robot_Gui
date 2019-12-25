@@ -1,59 +1,48 @@
 #!/usr/bin/python
 import xml.dom.minidom
-import ttk
-from Tkinter import *
-from ttk import *
 from Constants import *
-from widgets import ConfigurableTextBoxWidget
+from GUIGenerator import GUIGenerator
 
 
 class XmlParser:
-    windowName = ""
     dataPassDictionary = {}
 
     def __init__(self, filename, window):
+        self.guiGenerator = GUIGenerator(window)
+
         self.allWidgetsList = []
         self.window = window
 
         # Turn the file into a xml file
         self.document = xml.dom.minidom.parse(filename)
 
-        # Get the label/value data for every element in the file
+        # Get the keys for the the data pass dictionary, and insert them in to the dict
         lines = self.document.getElementsByTagName(Constants.LINE_NAME)
         for line in lines:
             value = line.getAttribute(Constants.VALUE_ATTRIBUTE)
             self.dataPassDictionary[value] = 0
 
 
-        # Get the title and other info from the file
-        self.windowName = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
-            Constants.TITTLE_ATTRIBUTE)
-        windowHeight = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
-             Constants.HEIGHT_ATTRIBUTE)
-        windowWidth = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
-            Constants.WIDTH_ATTRIBUTE)
+        # Get attributes that will apply to the entire window
+        self.guiGenerator.setWindowName(self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(Constants.TITTLE_ATTRIBUTE))
+        windowHeight = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(Constants.HEIGHT_ATTRIBUTE)
+        windowWidth = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(Constants.WIDTH_ATTRIBUTE)
+        self.guiGenerator.setWindowSize(windowWidth, windowHeight)
 
-        self.window.geometry(windowWidth + "x" + windowHeight)
-        self.window.title(self.windowName)
-
-        # Stuff
+        # Get all of the tabs from the file
         tabs = self.document.getElementsByTagName(Constants.TAB_NAME)
-        self.tab_control = ttk.Notebook(self.window)
-        self.guiTabs = []
-        i = 0
-        for tab in tabs:
-            # Generate a tab based on the xml file
-            tabName = tab.getAttribute(Constants.TITTLE_ATTRIBUTE)
-            self.guiTabs.append(ttk.Frame(self.tab_control))
-            self.tab_control.add(self.guiTabs[i], text=tabName)
 
-            # Get a list of widgits for the current tab
-            widgets = tab.getElementsByTagName(Constants.WIDGET_NAME)
+        # Generate all of the tabs
+        for i in range(len(tabs)):
+            # Add a new tab for every tab in the xml file
+            self.guiGenerator.addTab(tabs[i].getAttribute(Constants.TITTLE_ATTRIBUTE))
+
+            # Get a list of widgets for the current tab
+            widgets = tabs[i].getElementsByTagName(Constants.WIDGET_NAME)
             for widget in widgets:
-                self.createWidget(widget, self.guiTabs[i])
-            i += 1
+                self.createWidget(widget, self.guiGenerator.getGuiTabs()[i])
 
-        self.tab_control.pack(expand=1, fill='both')
+        self.guiGenerator.initTabs()
 
     def createWidget(self, widget, tab):
         title =           self.getAttribute(widget, Constants.TITTLE_ATTRIBUTE, "Error: no tittle")
@@ -93,20 +82,19 @@ class XmlParser:
                 self.configInfo.append([label, value])
 
             widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
-            self.allWidgetsList.append(ConfigurableTextBoxWidget.ConfigurableTextBoxWidget(widgetInfo, self.window))
+            self.guiGenerator.createWidget(widgetInfo)
 
-    def getAttribute(self, xmlClip, attribute, defult):
+    def getAttribute(self, xmlClip, attribute, default):
         data = xmlClip.getAttribute(attribute)
         if(data == ""):
-            return defult
+            return default
         return data
 
     def getDataPassDictionary(self):
         return self.dataPassDictionary
 
     def getAllWidgetsList(self):
-        print(self.allWidgetsList)
-        return self.allWidgetsList
+        return self.guiGenerator.getAllWidgetsList()
 
     def getConfigInfo(self):
         return self.configInfo

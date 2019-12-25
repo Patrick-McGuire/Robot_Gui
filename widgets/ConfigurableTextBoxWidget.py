@@ -40,7 +40,7 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
         self.makeDraggable()
         if(hidden):
             self.hide()
-        self.show()
+
 
     def updateInfo(self, data):
         string = self.widgetTitle + "\n"

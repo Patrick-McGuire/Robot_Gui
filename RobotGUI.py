@@ -3,13 +3,12 @@
 from Tkinter import *
 import threading
 from XmlParser import XmlParser
-from Constants import *
-
 
 class RobotGUI(threading.Thread):
     filledDataPass = {}
     dataPassDictionary = {}
     filePath = ""
+    enable = True
 
     def __init__(self, filePath):
         self.filePath = filePath
@@ -25,17 +24,29 @@ class RobotGUI(threading.Thread):
         self.dataPassDictionary = self.parser.getDataPassDictionary()
 
         self.window.after(100, self.updateInfo)
+
+        self.window.protocol("WM_DELETE_WINDOW", self.onClosing)
         self.window.mainloop()
 
+    def onClosing(self):
+        self.enable = False
+
     def updateInfo(self):
-        #print(self.allWidgetsList)
-        for widget in self.allWidgetsList:
-            widget.updateInfo(self.filledDataPass)
-        self.window.after(50, self.updateInfo)
-        for i in threading.enumerate():
-            if i.name == "MainThread":
-                if not i.is_alive():
-                    self.window.destroy()
+        try:
+            # Update all widgets
+            for widget in self.allWidgetsList:
+                widget.updateInfo(self.filledDataPass)
+
+            # Set this function to run again
+            self.window.after(50, self.updateInfo)
+
+            # Check if the main thread has ended, and if it has, quit the window
+            for i in threading.enumerate():
+                if i.name == "MainThread":
+                    if not i.is_alive():
+                        self.enable = False
+        except AttributeError:
+            print("Update info failed.")
 
     def getDataPassDictionary(self):
         return self.dataPassDictionary

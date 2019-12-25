@@ -19,23 +19,17 @@ def makeDraggable(a):
     a.bind("<Button-1>", onDragStart)
     a.bind("<B1-Motion>", onDragMotion)
 
-width, height = 800, 600
 cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
-
-print(cv2.CAP_PROP_FRAME_WIDTH)
-print(cv2.CAP_PROP_FRAME_HEIGHT)
 
 root = tk.Tk()
-#root.bind('<Escape>', lambda e: root.quit())
+    #root.bind('<Escape>', lambda e: root.quit())
 lmain = tk.Label(root)
 makeDraggable(lmain)
 lmain.pack()
 
 
 def show_frame():
-    height = 1400
+    height = 1000
     _, frame = cap.read()
     frame = cv2.resize(frame, (height, int(height * .75)))
     frame = cv2.flip(frame, 1)

@@ -4,6 +4,8 @@ from Tkinter import *
 from ttk import *
 
 class CustomBaseWidget:
+    toggle = False
+    toggleTracker = False
     def __init__(self, widget, draggable, xPos, yPos, window):
         self.window = window
         self.widget = widget
@@ -16,6 +18,7 @@ class CustomBaseWidget:
         self.widget.bind("<B1-Motion>", self.onDragMotion)
 
     def onDragStart(self, event):
+        self.toggle = not self.toggle
         if(self.draggable):
             widget = event.widget
             widget._drag_start_x = event.x
@@ -39,6 +42,7 @@ class CustomBaseWidget:
             self.xPos = x
             self.yPos = y
             widget.place(x=x, y=y)
+
 
     def hide(self):
         self.widget.place_forget()
