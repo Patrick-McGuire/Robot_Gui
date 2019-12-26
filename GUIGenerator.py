@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import ttk
-from widgets import ConfigurableTextBoxWidget
+from widgets import ConfigurableTextBoxWidget, VideoScreen
 
 class GUIGenerator:
     guiTabs = []
@@ -25,8 +25,11 @@ class GUIGenerator:
     def setWindowName(self, name):
         self.window.title(name)
 
-    def createWidget(self, widgetInfo):
+    def createConfigurableTextBox(self, widgetInfo):
         self.allWidgetsList.append(ConfigurableTextBoxWidget.ConfigurableTextBoxWidget(widgetInfo, self.window))
+
+    def createVideoWindow(self, widgetInfo):
+        self.allWidgetsList.append(VideoScreen.VideoScreen(widgetInfo, self.window))
 
     def getGuiTabs(self):
         return self.guiTabs

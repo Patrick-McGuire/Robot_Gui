@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 from Tkinter import *
-from ttk import *
 
 class CustomBaseWidget:
     toggle = False
