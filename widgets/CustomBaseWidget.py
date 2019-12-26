@@ -6,16 +6,20 @@ class CustomBaseWidget:
     toggle = False
     toggleTracker = False
     hideOnClick = False
-    def __init__(self, widget, draggable, xPos, yPos, window):
+    widgetTittle = ""
+    def __init__(self, widget, draggable, xPos, yPos, window, tittle, static=False):
         self.window = window
         self.widget = widget
         self.draggable = draggable
         self.xPos = xPos
         self.yPos = yPos
+        self.static = static
+        self.widgetTittle = tittle
 
     def makeDraggable(self):
-        self.widget.bind("<Button-1>", self.onDragStart)
-        self.widget.bind("<B1-Motion>", self.onDragMotion)
+        if(not self.static):
+            self.widget.bind("<Button-1>", self.onDragStart)
+            self.widget.bind("<B1-Motion>", self.onDragMotion)
 
     def onDragStart(self, event):
         if(self.hideOnClick):
@@ -48,14 +52,21 @@ class CustomBaseWidget:
 
 
     def hide(self):
-        self.widget.place_forget()
+        if(not self.static):
+            self.widget.place_forget()
+            self.hidderWidget.setState(False)
 
     def show(self):
-        self.widget.grid()
-        self.widget.place(x=self.xPos, y=self.yPos)
+        if(not self.static):
+            self.widget.grid()
+            self.widget.place(x=self.xPos, y=self.yPos)
+            self.hidderWidget.setState(True)
 
     def dragOn(self):
         self.draggable = True
 
     def dragOff(self):
         self.draggable = False
+
+    def setHidderWidget(self, hidderWidget):
+        self.hidderWidget = hidderWidget

@@ -47,6 +47,7 @@ class RobotGUI(threading.Thread):
                 if i.name == "MainThread":
                     if not i.is_alive():
                         self.enable = False
+                        self.window.destroy()
         except AttributeError:
             print("Update info failed.")
 

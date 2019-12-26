@@ -13,6 +13,9 @@ class XmlParser:
         self.allWidgetsList = []
         self.window = window
 
+        # Init the gui (add settings tab, do other things)
+        self.guiGenerator.preInit()
+
         # Turn the file into a xml file
         self.document = xml.dom.minidom.parse(filename)
 
@@ -35,14 +38,14 @@ class XmlParser:
         tabs = self.document.getElementsByTagName(Constants.TAB_NAME)
 
         # Generate all of the tabs
-        for i in range(len(tabs)):
+        for i in range(0, len(tabs)):
             # Add a new tab for every tab in the xml file
             self.guiGenerator.addTab(tabs[i].getAttribute(Constants.TITTLE_ATTRIBUTE))
 
             # Get a list of widgets for the current tab
             widgets = tabs[i].getElementsByTagName(Constants.WIDGET_NAME)
             for widget in widgets:
-                self.createWidget(widget, self.guiGenerator.getGuiTabs()[i])
+                self.createWidget(widget, self.guiGenerator.getGuiTabs()[i + 1])
 
         self.guiGenerator.postInit()
         self.guiGenerator.initTabs()
