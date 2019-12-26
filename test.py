@@ -22,6 +22,7 @@ def makeDraggable(a):
 cap = cv2.VideoCapture(0)
 
 root = tk.Tk()
+
     #root.bind('<Escape>', lambda e: root.quit())
 lmain = tk.Label(root)
 makeDraggable(lmain)
@@ -29,7 +30,7 @@ lmain.pack()
 
 
 def show_frame():
-    height = 1000
+    height = 1900
     _, frame = cap.read()
     frame = cv2.resize(frame, (height, int(height * .75)))
     frame = cv2.flip(frame, 1)
@@ -39,11 +40,6 @@ def show_frame():
     lmain.imgtk = imgtk
     lmain.configure(image=imgtk)
     lmain.after(10, show_frame)
-
-
-
-
-
 
 
 

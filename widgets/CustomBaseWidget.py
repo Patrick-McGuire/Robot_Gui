@@ -6,6 +6,7 @@ from ttk import *
 class CustomBaseWidget:
     toggle = False
     toggleTracker = False
+    hideOnClick = False
     def __init__(self, widget, draggable, xPos, yPos, window):
         self.window = window
         self.widget = widget
@@ -18,11 +19,14 @@ class CustomBaseWidget:
         self.widget.bind("<B1-Motion>", self.onDragMotion)
 
     def onDragStart(self, event):
-        self.toggle = not self.toggle
-        if(self.draggable):
-            widget = event.widget
-            widget._drag_start_x = event.x
-            widget._drag_start_y = event.y
+        if(self.hideOnClick):
+            self.hide()
+        else:
+            self.toggle = not self.toggle
+            if(self.draggable):
+                widget = event.widget
+                widget._drag_start_x = event.x
+                widget._drag_start_y = event.y
 
     def onDragMotion(self, event):
         if(self.draggable):
@@ -50,3 +54,9 @@ class CustomBaseWidget:
     def show(self):
         self.widget.grid()
         self.widget.place(x=self.xPos, y=self.yPos)
+
+    def dragOn(self):
+        self.draggable = True
+
+    def dragOff(self):
+        self.draggable = False
