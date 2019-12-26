@@ -1,4 +1,4 @@
-import Tkinter as tk
+from Tkinter import *
 import cv2
 from PIL import Image, ImageTk
 
@@ -21,13 +21,11 @@ def makeDraggable(a):
 
 cap = cv2.VideoCapture(0)
 
-root = tk.Tk()
+window = Tk()
+lmain = Label(window)
 
-    #root.bind('<Escape>', lambda e: root.quit())
-lmain = tk.Label(root)
 makeDraggable(lmain)
 lmain.pack()
-
 
 def show_frame():
     height = 1900
@@ -41,7 +39,5 @@ def show_frame():
     lmain.configure(image=imgtk)
     lmain.after(10, show_frame)
 
-
-
 show_frame()
-root.mainloop()
+window.mainloop()

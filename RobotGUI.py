@@ -3,6 +3,7 @@
 from Tkinter import *
 import threading
 from XmlParser import XmlParser
+import time
 
 class RobotGUI(threading.Thread):
     filledDataPass = {}
@@ -38,8 +39,8 @@ class RobotGUI(threading.Thread):
             for widget in self.allWidgetsList:
                 widget.updateInfo(self.filledDataPass)
 
-            # Set this function to run again
-            self.window.after(50, self.updateInfo)
+            # Set this function to run again DON'T CHANGE TIME HERE
+            self.window.after(10, self.updateInfo)
 
             # Check if the main thread has ended, and if it has, quit the window
             for i in threading.enumerate():

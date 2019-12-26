@@ -7,6 +7,7 @@ class Constants:
     LINE_NAME = "line"
 
     CONFIGURABLE_TEXT_BOX = "ConfigurableTextBox"
+    VIDEO_WINDOW_TYPE = "video"
 
     CONFIG_ATTRIBUTE = "config"
     TAB_ATTRIBUTE = "tab"
