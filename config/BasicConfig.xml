@@ -14,7 +14,7 @@
 
         <widget title = "test" type = "video" x = "0" y = "0" hidden = "False" draggable = "True"/>
     </tab>
-    <tab title = "Settings">
+    <tab title = "Settisdfngs">
         <widget title = "Power Stats2" type = "ConfigurableTextBox" x = "100" y = "100" font = "Arial" fontsize = "20" hidden = "False" draggable = "True">
 	        <line label = "Battery Voltage2" value = "batteryVoltage"/>
             <line label = "5v Bus Voltage2" value = "v5Voltage"/>

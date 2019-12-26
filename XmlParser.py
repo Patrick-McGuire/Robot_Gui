@@ -44,6 +44,7 @@ class XmlParser:
             for widget in widgets:
                 self.createWidget(widget, self.guiGenerator.getGuiTabs()[i])
 
+        self.guiGenerator.postInit()
         self.guiGenerator.initTabs()
 
     def createWidget(self, widget, tab):

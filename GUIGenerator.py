@@ -1,13 +1,32 @@
 #!/usr/bin/python
 import ttk
 from widgets import ConfigurableTextBoxWidget, VideoScreen
+from Tkinter import *
 
 class GUIGenerator:
     guiTabs = []
     allWidgetsList = []
+    menueList = []
     def __init__(self, window):
         self.window = window
         self.tab_control = ttk.Notebook(self.window)
+
+    # Add all of the basic features for operation
+    def preInit(self):
+        self.addTab("Settings")
+
+    def postInit(self):
+        basicMenue = [["Lock All Widgets", self.lockAllWidgets], ["Unlock All Widgets", self.unlockAllWidgets], ["Toggle Hide On Click", self.hideOnClick], ["Show All Widgets", self.showAllWidgets]]
+        self.newMenue("Settings", basicMenue)
+        self.window.bind('<Escape>', self.disableOnClick)
+
+    def newMenue(self, name, options):
+        menu = Menu(self.window)
+        new_item = Menu(menu, tearoff=0)
+        for i in options:
+            new_item.add_command(label=i[0], command=i[1])
+        menu.add_cascade(label=name, menu=new_item)
+        self.window.config(menu=menu)
 
     # Add a tab to the window
     def addTab(self, name):
@@ -36,3 +55,23 @@ class GUIGenerator:
 
     def getAllWidgetsList(self):
         return self.allWidgetsList
+
+    def lockAllWidgets(self):
+        for widget in self.allWidgetsList:
+            widget.dragOff()
+
+    def unlockAllWidgets(self):
+        for widget in self.allWidgetsList:
+            widget.dragOn()
+
+    def showAllWidgets(self):
+        for widget in self.allWidgetsList:
+            widget.show()
+
+    def hideOnClick(self):
+        for widget in self.allWidgetsList:
+            widget.hideOnClick = not widget.hideOnClick
+
+    def disableOnClick(self, e):
+        for widget in self.allWidgetsList:
+            widget.hideOnClick = False

@@ -10,6 +10,7 @@ class RobotGUI(threading.Thread):
     dataPassDictionary = {}
     filePath = ""
     enable = True
+    count = 0
 
     def __init__(self, filePath):
         self.filePath = filePath

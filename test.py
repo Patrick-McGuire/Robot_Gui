@@ -23,12 +23,12 @@ cap = cv2.VideoCapture(0)
 
 window = Tk()
 lmain = Label(window)
+
 makeDraggable(lmain)
 lmain.pack()
 
-
 def show_frame():
-    height = 1000
+    height = 1900
     _, frame = cap.read()
     frame = cv2.resize(frame, (height, int(height * .75)))
     frame = cv2.flip(frame, 1)
@@ -38,13 +38,6 @@ def show_frame():
     lmain.imgtk = imgtk
     lmain.configure(image=imgtk)
     lmain.after(10, show_frame)
-
-
-
-
-
-
-
 
 show_frame()
 window.mainloop()
