@@ -21,6 +21,7 @@ class GUIGenerator:
         for i in range(len(self.allWidgetsList)):
             self.allWidgetsList.append(VilibilityToggleCheckBoxWidget.VilibilityToggleCheckBoxWidget(self.guiTabs[0], [10, 10+(20*i)], self.window, self.allWidgetsList[i].widgetTittle, self.allWidgetsList[i]))
             self.allWidgetsList[i].setHidderWidget(self.allWidgetsList[-1])
+            self.allWidgetsList[i].setAllWidsList(self.allWidgetsList)
 
         # Menu stuff
         basicMenue = [["Lock All Widgets", self.lockAllWidgets], ["Unlock All Widgets", self.unlockAllWidgets], ["Enable Hide On Click", self.hideOnClick], ["Disable Hide On Click", self.disableOnClick], ["Show All Widgets", self.showAllWidgets]]
@@ -91,7 +92,6 @@ class GUIGenerator:
             widget.show()
 
     def hideOnClick(self, e=0):
-        print("yay")
         for widget in self.allWidgetsList:
             widget.hideOnClick = True
 
