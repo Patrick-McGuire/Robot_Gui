@@ -78,6 +78,7 @@ class XmlParser:
             Constants.RELIEF_ATTRIBUTE: relief
         }
 
+        # Code to handle specific types of widgets
         type = widget.getAttribute(Constants.TYPE_ATTRIBUTE)
         self.configInfo = []
         if (type == Constants.CONFIGURABLE_TEXT_BOX):
@@ -92,9 +93,8 @@ class XmlParser:
         elif (type == Constants.VIDEO_WINDOW_TYPE):
             lines = widget.getElementsByTagName(Constants.LINE_NAME)
             for line in lines:
-                label = line.getAttribute(Constants.LABEL_ATTRIBUTE)
                 value = line.getAttribute(Constants.VALUE_ATTRIBUTE)
-                self.configInfo.append([label, value])
+                self.configInfo.append(value)
 
             widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
 
