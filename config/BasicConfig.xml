@@ -1,23 +1,30 @@
-<!--Basic test config-->
-
-<window title="Probot Control" width="1920" height="1080">
-    <tab title="Dashboard">
+<window title = "Probot Control" width = "1920" height = "1080">
+    <tab title = "Dashboard">
         <widget title="test" type="video" x="0" y="0" hidden="False" draggable="True">
             <line value="webcam"/>
         </widget>
-
-        <widget title="Power Stats" type="ConfigurableTextBox" x="500" y="500" font="Arial" fontsize="20"
-                background="Red" foreground="Yellow" relief="solid" borderwidth="4" hidden="False" draggable="True">
-            <line label="Battery Voltage" value="batteryVoltage"/>
-            <line label="5v Bus Voltage" value="v5Voltage"/>
-            <line label="3.3v Bus Voltage" value="v33Voltage"/>
-            <line label="Current Draw" value="current"/>
+        <widget title = "Power Stats" type = "ConfigurableTextBox" x = "500" y = "500" font = "Arial" fontsize = "20" background = "Red" foreground = "Yellow" relief = "solid" borderwidth = "4" hidden = "False" draggable = "True">
+	        <line label = "Battery Voltage" value = "batteryVoltage"/>
+            <line label = "5v Bus Voltage" value = "v5Voltage"/>
+            <line label = "3.3v Bus Voltage" value = "v33Voltage"/>
+            <line label = "Current Draw" value = "current"/>
         </widget>
-        <widget title="Powerasdff Stats" type="ConfigurableTextBox" x="300" y="300" font="Arial" fontsize="20"
-                hidden="False" draggable="True">
-
-        </widget>
-
+              <widget title = "Powerasdff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Po1werasdff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Pow2erasdff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Powe3rasdff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Power4asdff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Powera5sdff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Poweras6dff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Powerasd7ff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+        <widget title = "Powerasdff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Po1werasdff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Pow2erasdff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Powe3rasdff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Power4asdff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Powera5sdff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Poweras6dff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
+       <widget title = "Powerasd7ff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
 
     </tab>
     <tab title="Settisdfngs">

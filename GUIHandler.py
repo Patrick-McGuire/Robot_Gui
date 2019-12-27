@@ -26,7 +26,7 @@ class GUIHandler:
         if (not self.guiInstance.is_alive() or not self.guiInstance.enable or manualQuit):
             if (self.guiInstance.is_alive()):
                 self.guiInstance.window.quit()
-                del self.guiInstance.window
+                # del self.guiInstance.window
             return False
         return True
 

@@ -34,8 +34,7 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
         self.widget = Label(tab, textvariable=self.nameVar, borderwidth=borderwidth, relief=relief, background=backgroundColor, foreground=foregroundColor, font=(font, fontSize))
         self.widget.grid(column=0, row=0)
         self.widget.place(x=xpos, y=ypos)
-
-        CustomBaseWidget.__init__(self, self.widget, draggabe, xpos, ypos, window)
+        CustomBaseWidget.__init__(self, self.widget, draggabe, xpos, ypos, window, configDict[Constants.TITTLE_ATTRIBUTE])
 
         self.makeDraggable()
         if(hidden):

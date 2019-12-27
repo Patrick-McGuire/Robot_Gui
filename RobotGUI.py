@@ -26,6 +26,9 @@ class RobotGUI(threading.Thread):
         self.allWidgetsList = self.parser.getAllWidgetsList()
         self.dataPassDictionary = self.parser.getDataPassDictionary()
 
+        # scrollbar = Scrollbar(self.window)
+        # scrollbar.pack(side=RIGHT, fill=Y)
+
         self.window.after(100, self.updateInfo)
 
         self.window.protocol("WM_DELETE_WINDOW", self.onClosing)
@@ -36,6 +39,10 @@ class RobotGUI(threading.Thread):
 
     def updateInfo(self):
         try:
+          self.window.getint()
+        except AttributeError:
+            return
+        
             # Update all widgets
             for widget in self.allWidgetsList:
                 # Check to make sure there is actually data
@@ -49,14 +56,13 @@ class RobotGUI(threading.Thread):
             # Set this function to run again DON'T CHANGE TIME HERE
             self.window.after(10, self.updateInfo)
 
-            # Check if the main thread has ended, and if it has, quit the window
-            for i in threading.enumerate():
-                if i.name == "MainThread":
-                    if not i.is_alive():
-                        self.enable = False
-        except AttributeError as e:
-            print("Update info failed.")
-            print(e)
+           # Check if the main thread has ended, and if it has, quit the window
+           for i in threading.enumerate():
+              if i.name == "MainThread":
+                if not i.is_alive():
+                    self.enable = False
+                    self.window.destroy()
+
 
     def getDataPassDictionary(self):
         return self.dataPassDictionary
