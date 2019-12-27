@@ -2,6 +2,7 @@ from Tkinter import *
 import cv2
 from PIL import Image, ImageTk
 
+
 def onDragStart(event):
     widget = event.widget
     widget._drag_start_x = event.x
@@ -19,6 +20,7 @@ def makeDraggable(a):
     a.bind("<Button-1>", onDragStart)
     a.bind("<B1-Motion>", onDragMotion)
 
+
 cap = cv2.VideoCapture(0)
 
 window = Tk()
@@ -26,6 +28,7 @@ lmain = Label(window)
 
 makeDraggable(lmain)
 lmain.pack()
+
 
 def show_frame():
     height = 1900
@@ -38,6 +41,7 @@ def show_frame():
     lmain.imgtk = imgtk
     lmain.configure(image=imgtk)
     lmain.after(10, show_frame)
+
 
 show_frame()
 window.mainloop()

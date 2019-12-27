@@ -27,6 +27,9 @@ class VideoScreen(CustomBaseWidget):
         borderwidth = int(configDict[Constants.BORDER_WIDTH_ATTRIBUTE])
         relief = configDict[Constants.RELIEF_ATTRIBUTE]
 
+        videoStream = configDict["config"]
+        self.videoStream = videoStream[0]
+
         self.configInfo = configDict[Constants.CONFIG_ATTRIBUTE]
 
         self.widgetTitle = title
@@ -40,20 +43,25 @@ class VideoScreen(CustomBaseWidget):
 
         CustomBaseWidget.__init__(self, self.widget, draggabe, xpos, ypos, window)
 
-        self.cap = cv2.VideoCapture(0)
-        self.hasVideoStream = True
+        # self.cap = cv2.VideoCapture(0)
+        # self.hasVideoStream = True
 
         self.makeDraggable()
         if (hidden):
             self.hide()
 
     def updateInfo(self, data):
-        if self.hasVideoStream:
-            self.readStream(data)
+        # print(data)
+        if data != 0:
+            frame = data[self.videoStream]
+            if str(frame) == "0":
+                pass
+            else:
+                self.hasVideoStream = True
+                self.readStream(frame)
 
-    def readStream(self, data):
+    def readStream(self, frame):
         height = 1000
-        _, frame = self.cap.read()
         frame = cv2.resize(frame, (height, int(height * .75)))
         frame = cv2.flip(frame, 1)
         cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)

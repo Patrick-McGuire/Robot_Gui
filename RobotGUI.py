@@ -5,6 +5,7 @@ import threading
 from XmlParser import XmlParser
 import time
 
+
 class RobotGUI(threading.Thread):
     filledDataPass = {}
     dataPassDictionary = {}
@@ -37,7 +38,13 @@ class RobotGUI(threading.Thread):
         try:
             # Update all widgets
             for widget in self.allWidgetsList:
-                widget.updateInfo(self.filledDataPass)
+                # Check to make sure there is actually data
+                if self.filledDataPass == 0:
+                    pass
+                elif len(self.filledDataPass) == 0:
+                    pass
+                else:
+                    widget.updateInfo(self.filledDataPass)
 
             # Set this function to run again DON'T CHANGE TIME HERE
             self.window.after(10, self.updateInfo)
@@ -47,13 +54,12 @@ class RobotGUI(threading.Thread):
                 if i.name == "MainThread":
                     if not i.is_alive():
                         self.enable = False
-        except AttributeError:
+        except AttributeError as e:
             print("Update info failed.")
+            print(e)
 
     def getDataPassDictionary(self):
         return self.dataPassDictionary
 
     def setDataPassDictionary(self, data):
         self.filledDataPass = data
-
-

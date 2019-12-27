@@ -5,11 +5,11 @@ import random
 import time
 import warnings
 
-class GUIHandler:
 
+class GUIHandler:
     def __init__(self, filePath):
         self.guiInstance = RobotGUI.RobotGUI(filePath)
-        time.sleep(1) # Allow for the other thread to complete initialization
+        time.sleep(1)  # Allow for the other thread to complete initialization
         self.dataPassDictionary = self.guiInstance.getDataPassDictionary()
         warnings.filterwarnings("ignore")
 
@@ -24,8 +24,11 @@ class GUIHandler:
 
     def handleQuit(self, manualQuit):
         if (not self.guiInstance.is_alive() or not self.guiInstance.enable or manualQuit):
-            if(self.guiInstance.is_alive()):
+            if (self.guiInstance.is_alive()):
                 self.guiInstance.window.quit()
                 del self.guiInstance.window
             return False
         return True
+
+    def getDataPassDict(self):
+        return self.dataPassDictionary
