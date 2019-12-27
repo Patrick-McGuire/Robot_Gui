@@ -25,6 +25,9 @@ class RobotGUI(threading.Thread):
         self.allWidgetsList = self.parser.getAllWidgetsList()
         self.dataPassDictionary = self.parser.getDataPassDictionary()
 
+        # scrollbar = Scrollbar(self.window)
+        # scrollbar.pack(side=RIGHT, fill=Y)
+
         self.window.after(100, self.updateInfo)
 
         self.window.protocol("WM_DELETE_WINDOW", self.onClosing)

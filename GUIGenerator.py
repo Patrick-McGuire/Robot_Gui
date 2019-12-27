@@ -2,6 +2,7 @@
 import ttk
 from widgets import ConfigurableTextBoxWidget, VideoScreen, VilibilityToggleCheckBoxWidget
 from Tkinter import *
+import math
 
 class GUIGenerator:
     globalLockedState = True
@@ -19,7 +20,7 @@ class GUIGenerator:
     def postInit(self):
         # Settings tab stuff
         for i in range(len(self.allWidgetsList)):
-            self.allWidgetsList.append(VilibilityToggleCheckBoxWidget.VilibilityToggleCheckBoxWidget(self.guiTabs[0], [10, 10+(20*i)], self.window, self.allWidgetsList[i].widgetTittle, self.allWidgetsList[i]))
+            self.allWidgetsList.append(VilibilityToggleCheckBoxWidget.VilibilityToggleCheckBoxWidget(self.guiTabs[0], [10, 10+(20*i)], self.window, self.allWidgetsList[i].widgetTittle, self.allWidgetsList[i], i))
             self.allWidgetsList[i].setHidderWidget(self.allWidgetsList[-1])
             self.allWidgetsList[i].setAllWidsList(self.allWidgetsList)
 
@@ -31,7 +32,6 @@ class GUIGenerator:
         self.window.bind('<Escape>', self.disableOnClick)
         self.window.bind('<grave>', self.hideOnClick)
         self.window.bind('<F1>', self.toggleLockAllWidgets)
-
 
     def newMenue(self, name, options):
         menu = Menu(self.window)
