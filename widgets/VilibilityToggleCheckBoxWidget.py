@@ -19,8 +19,8 @@ class VilibilityToggleCheckBoxWidget(CustomBaseWidget):
 
     def updateInfo(self, data):
         windowHeight = self.window.winfo_height() - 70
-        row = 0 #((self.widgNum * 20) / windowHeight)
-        col = self.widgNum * 20 #(self.widgNum * 20) % windowHeight
+        row = ((self.widgNum * 20) / windowHeight)
+        col = (self.widgNum * 20) % windowHeight
         self.widget.place(x=(row * 200) + 20, y=col + 20)
 
         if(self.state.get() == True):

@@ -15,7 +15,7 @@ while (a.handleQuit(False)):
             dataPassDictionary[key] = random.randint(0, 9)
 
     _, frame = cap.read()
-    dataPassDictionary["webcam"] = 0
+    dataPassDictionary["webcam"] = frame
 
     a.updateInfo(dataPassDictionary)
 

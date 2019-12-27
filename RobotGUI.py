@@ -39,30 +39,29 @@ class RobotGUI(threading.Thread):
 
     def updateInfo(self):
         try:
-          self.window.getint()
+            self.window.getint()
         except AttributeError:
             return
-        
-            # Update all widgets
-            for widget in self.allWidgetsList:
-                # Check to make sure there is actually data
-                if self.filledDataPass == 0:
-                    pass
-                elif len(self.filledDataPass) == 0:
-                    pass
-                else:
-                    widget.updateInfo(self.filledDataPass)
+
+        # Update all widgets
+        for widget in self.allWidgetsList:
+            # Check to make sure there is actually data
+            if self.filledDataPass == 0:
+                pass
+            elif len(self.filledDataPass) == 0:
+                pass
+            else:
+                widget.updateInfo(self.filledDataPass)
 
             # Set this function to run again DON'T CHANGE TIME HERE
-            self.window.after(10, self.updateInfo)
+        self.window.after(10, self.updateInfo)
 
-           # Check if the main thread has ended, and if it has, quit the window
-           for i in threading.enumerate():
-              if i.name == "MainThread":
+        # Check if the main thread has ended, and if it has, quit the window
+        for i in threading.enumerate():
+            if i.name == "MainThread":
                 if not i.is_alive():
                     self.enable = False
                     self.window.destroy()
-
 
     def getDataPassDictionary(self):
         return self.dataPassDictionary
