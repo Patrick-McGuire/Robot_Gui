@@ -14,6 +14,7 @@ while (a.handleQuit(False)):
         if key != "webcam":
             dataPassDictionary[key] = random.randint(0, 9)
 
+    #Get next image
     _, frame = cap.read()
     dataPassDictionary["webcam"] = frame
 

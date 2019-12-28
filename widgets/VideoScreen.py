@@ -41,19 +41,17 @@ class VideoScreen(CustomBaseWidget):
         self.widget.grid(column=0, row=0)
         self.widget.place(x=xpos, y=ypos)
 
-        CustomBaseWidget.__init__(self, self.widget, draggabe, xpos, ypos, window, configDict[Constants.TITTLE_ATTRIBUTE])
-
-        # self.cap = cv2.VideoCapture(0)
-        # self.hasVideoStream = True
+        CustomBaseWidget.__init__(self, self.widget, draggabe, xpos, ypos, window,
+                                  configDict[Constants.TITTLE_ATTRIBUTE])
 
         self.makeDraggable()
-        if (hidden):
+        if hidden:
             self.hide()
 
     def updateInfo(self, data):
-        # print(data)
         if data != 0:
             frame = data[self.videoStream]
+            # Check if we are actually sent an image
             if str(frame) == "0":
                 pass
             else:

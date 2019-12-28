@@ -6,6 +6,7 @@ from GUIGenerator import GUIGenerator
 
 class XmlParser:
     dataPassDictionary = {}
+    configInfo = []
 
     def __init__(self, filename, window):
         self.guiGenerator = GUIGenerator(window)
@@ -79,9 +80,9 @@ class XmlParser:
         }
 
         # Code to handle specific types of widgets
-        type = widget.getAttribute(Constants.TYPE_ATTRIBUTE)
         self.configInfo = []
-        if (type == Constants.CONFIGURABLE_TEXT_BOX):
+        type = widget.getAttribute(Constants.TYPE_ATTRIBUTE)
+        if type == Constants.CONFIGURABLE_TEXT_BOX:
             lines = widget.getElementsByTagName(Constants.LINE_NAME)
             for line in lines:
                 label = line.getAttribute(Constants.LABEL_ATTRIBUTE)
@@ -90,7 +91,7 @@ class XmlParser:
 
             widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
             self.guiGenerator.createConfigurableTextBox(widgetInfo)
-        elif (type == Constants.VIDEO_WINDOW_TYPE):
+        elif type == Constants.VIDEO_WINDOW_TYPE:
             lines = widget.getElementsByTagName(Constants.LINE_NAME)
             for line in lines:
                 value = line.getAttribute(Constants.VALUE_ATTRIBUTE)
@@ -104,7 +105,7 @@ class XmlParser:
 
     def getAttribute(self, xmlClip, attribute, default):
         data = xmlClip.getAttribute(attribute)
-        if (data == ""):
+        if data == "":
             return default
         return data
 

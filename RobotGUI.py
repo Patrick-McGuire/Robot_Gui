@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-from Tkinter import *
+import Tkinter
+from Tkinter import TclError
 import threading
 from XmlParser import XmlParser
 import time
@@ -20,7 +21,7 @@ class RobotGUI(threading.Thread):
 
     def run(self):
         # Init the window
-        self.window = Tk()
+        self.window = Tkinter.Tk()
 
         self.parser = XmlParser(self.filePath, self.window)
         self.allWidgetsList = self.parser.getAllWidgetsList()
@@ -40,21 +41,21 @@ class RobotGUI(threading.Thread):
     def updateInfo(self):
         try:
             self.window.getint()
-        except AttributeError:
-            return
 
-        # Update all widgets
-        for widget in self.allWidgetsList:
-            # Check to make sure there is actually data
-            if self.filledDataPass == 0:
-                pass
-            elif len(self.filledDataPass) == 0:
-                pass
-            else:
-                widget.updateInfo(self.filledDataPass)
+            # Update all widgets
+            for widget in self.allWidgetsList:
+                # Check to make sure there is actually data
+                if self.filledDataPass == 0:
+                    pass
+                elif len(self.filledDataPass) == 0:
+                    pass
+                else:
+                    widget.updateInfo(self.filledDataPass)
 
-            # Set this function to run again DON'T CHANGE TIME HERE
-        self.window.after(10, self.updateInfo)
+                    # Set this function to run again DON'T CHANGE TIME HERE
+            self.window.after(10, self.updateInfo)
+        except (AttributeError, TclError):
+            pass
 
         # Check if the main thread has ended, and if it has, quit the window
         for i in threading.enumerate():
