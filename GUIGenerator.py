@@ -2,13 +2,14 @@
 import ttk
 from widgets import ConfigurableTextBoxWidget, VideoScreen, VilibilityToggleCheckBoxWidget
 from Tkinter import *
-import math
+
 
 class GUIGenerator:
     globalLockedState = True
     guiTabs = []
     allWidgetsList = []
-    menueList = []
+    menuList = []
+
     def __init__(self, window):
         self.window = window
         self.tab_control = ttk.Notebook(self.window)
@@ -20,20 +21,26 @@ class GUIGenerator:
     def postInit(self):
         # Settings tab stuff
         for i in range(len(self.allWidgetsList)):
-            self.allWidgetsList.append(VilibilityToggleCheckBoxWidget.VilibilityToggleCheckBoxWidget(self.guiTabs[0], [10, 10+(20*i)], self.window, self.allWidgetsList[i].widgetTittle, self.allWidgetsList[i], i))
+            self.allWidgetsList.append(
+                VilibilityToggleCheckBoxWidget.VilibilityToggleCheckBoxWidget(self.guiTabs[0], [10, 10 + (20 * i)],
+                                                                              self.window,
+                                                                              self.allWidgetsList[i].widgetTittle,
+                                                                              self.allWidgetsList[i], i))
             self.allWidgetsList[i].setHidderWidget(self.allWidgetsList[-1])
             self.allWidgetsList[i].setAllWidsList(self.allWidgetsList)
 
         # Menu stuff
-        basicMenue = [["Lock All Widgets", self.lockAllWidgets], ["Unlock All Widgets", self.unlockAllWidgets], ["Enable Hide On Click", self.hideOnClick], ["Disable Hide On Click", self.disableOnClick], ["Show All Widgets", self.showAllWidgets]]
-        self.newMenue("Settings", basicMenue)
+        basicMenue = [["Lock All Widgets", self.lockAllWidgets], ["Unlock All Widgets", self.unlockAllWidgets],
+                      ["Enable Hide On Click", self.hideOnClick], ["Disable Hide On Click", self.disableOnClick],
+                      ["Show All Widgets", self.showAllWidgets]]
+        self.newMenu("Settings", basicMenue)
 
         # Key binds
         self.window.bind('<Escape>', self.disableOnClick)
         self.window.bind('<grave>', self.hideOnClick)
         self.window.bind('<F1>', self.toggleLockAllWidgets)
 
-    def newMenue(self, name, options):
+    def newMenu(self, name, options):
         menu = Menu(self.window)
         new_item = Menu(menu, tearoff=0)
         for i in options:
@@ -69,7 +76,6 @@ class GUIGenerator:
     def getAllWidgetsList(self):
         return self.allWidgetsList
 
-
     def lockAllWidgets(self):
         for widget in self.allWidgetsList:
             widget.dragOff()
@@ -79,7 +85,7 @@ class GUIGenerator:
             widget.dragOn()
 
     def toggleLockAllWidgets(self, e=0):
-        if(self.globalLockedState):
+        if self.globalLockedState:
             for widget in self.allWidgetsList:
                 widget.dragOff()
         else:

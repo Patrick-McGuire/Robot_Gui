@@ -4,7 +4,6 @@ import Tkinter
 from Tkinter import TclError
 import threading
 from XmlParser import XmlParser
-import time
 
 
 class RobotGUI(threading.Thread):
@@ -22,13 +21,11 @@ class RobotGUI(threading.Thread):
     def run(self):
         # Init the window
         self.window = Tkinter.Tk()
+        self.window.minsize(100, 100)
 
         self.parser = XmlParser(self.filePath, self.window)
         self.allWidgetsList = self.parser.getAllWidgetsList()
         self.dataPassDictionary = self.parser.getDataPassDictionary()
-
-        # scrollbar = Scrollbar(self.window)
-        # scrollbar.pack(side=RIGHT, fill=Y)
 
         self.window.after(100, self.updateInfo)
 
