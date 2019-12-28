@@ -1,7 +1,10 @@
 <window title = "Probot Control" width = "1920" height = "1080">
     <tab title = "Dashboard">
         <widget title="test" type="video" x="0" y="0" hidden="False" draggable="True">
-            <line value="webcam"/>
+            <line label="source" value="webcam"/>
+            <line label="dimensions" value="800x600"/>
+            <line label="fullscreen" value="True"/>
+            <line label="lockAspectRatio" value="True"/>
         </widget>
 
         <widget title = "Power Stats" type = "ConfigurableTextBox" x = "500" y = "500" font = "Arial" fontsize = "20" background = "Red" foreground = "Yellow" relief = "solid" borderwidth = "4" hidden = "False" draggable = "True">
@@ -11,8 +14,8 @@
             <line label = "Current Draw" value = "current"/>
         </widget>
         <widget title = "Powerasdff Stats" type = "ConfigurableTextBox" x = "300" y = "300" font = "Arial" fontsize = "20" hidden = "False" draggable = "True"> </widget>
-
     </tab>
+
     <tab title="Config">
         <widget title="Power Stats2" type="ConfigurableTextBox" x="100" y="100" font="Arial" fontsize="20"
                 hidden="False" draggable="True">
