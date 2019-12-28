@@ -71,18 +71,32 @@ class VideoScreen(CustomBaseWidget):
 
     def displayImage(self, frame):
         height, width, channels = frame.shape
-        aspectRatio = float(width)/float(height)
+        aspectRatio = float(width) / float(height)
 
-        print(aspectRatio)
+        windowHeight = float(self.window.winfo_height())
+        windowWidth = float(self.window.winfo_width())
+        windowAspectRatio = windowWidth / windowHeight
 
         if self.fullScreen:
-            self.width = self.window.winfo_width()
-            self.height = self.window.winfo_height()
+            self.width = windowWidth
+            self.height = windowHeight
+
+        if self.lockAspectRatio:
+            if aspectRatio >= windowAspectRatio:
+                self.width = windowWidth
+                self.height = windowWidth / aspectRatio
+                self.yPos = ((windowHeight - self.height) / 2)
+                self.xPos = 0
+            else:
+                self.height = windowHeight
+                self.width = windowHeight * aspectRatio
+                self.xPos = (windowWidth - self.width) / 2
+                self.yPos = 0
+
+            self.widget.place(x=self.xPos, y=self.yPos)
 
         frame = cv2.resize(frame, (int(self.width), int(self.height)))
-        frame = cv2.flip(frame, 1)
         cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
-        img = Image.fromarray(cv2image)
-        imgtk = ImageTk.PhotoImage(image=img)
+        imgtk = ImageTk.PhotoImage(image=Image.fromarray(cv2image))
         self.widget.imgtk = imgtk
         self.widget.configure(image=imgtk)
