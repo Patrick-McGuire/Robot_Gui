@@ -5,11 +5,13 @@ from Tkinter import *
 from XMLOutput import XMLOutput
 import tkFileDialog
 
+
 class GUIGenerator:
     globalLockedState = True
     guiTabs = []
     allWidgetsList = []
     menueList = []
+    
     def __init__(self, window, filePath):
         self.window = window
         self.tab_control = ttk.Notebook(self.window)
@@ -27,7 +29,11 @@ class GUIGenerator:
     def postInit(self):
         # Settings tab stuff
         for i in range(len(self.allWidgetsList)):
-            self.allWidgetsList.append(VilibilityToggleCheckBoxWidget.VilibilityToggleCheckBoxWidget(self.guiTabs[0], [10, 10+(20*i)], self.window, self.allWidgetsList[i].widgetTittle, self.allWidgetsList[i], i))
+            self.allWidgetsList.append(
+                VilibilityToggleCheckBoxWidget.VilibilityToggleCheckBoxWidget(self.guiTabs[0], [10, 10 + (20 * i)],
+                                                                              self.window,
+                                                                              self.allWidgetsList[i].widgetTittle,
+                                                                              self.allWidgetsList[i], i))
             self.allWidgetsList[i].setHidderWidget(self.allWidgetsList[-1])
             self.allWidgetsList[i].setAllWidsList(self.allWidgetsList)
 
@@ -44,7 +50,7 @@ class GUIGenerator:
         self.window.bind('<Control-s>', self.save)
         self.window.bind('<Control-Shift-S>', self.saveAs)
 
-    def newMenue(self, name, options):
+    def newMenu(self, name, options):
         menu = Menu(self.window)
         menuItems = []
         for j in range(len(options)):
@@ -83,7 +89,6 @@ class GUIGenerator:
     def getAllWidgetsList(self):
         return self.allWidgetsList
 
-
     def lockAllWidgets(self):
         for widget in self.allWidgetsList:
             widget.dragOff()
@@ -93,7 +98,7 @@ class GUIGenerator:
             widget.dragOn()
 
     def toggleLockAllWidgets(self, e=0):
-        if(self.globalLockedState):
+        if self.globalLockedState:
             for widget in self.allWidgetsList:
                 widget.dragOff()
         else:
@@ -130,3 +135,4 @@ class GUIGenerator:
         tabData = self.parser.getTabInfo()
         widgetsByTab = self.parser.getWidgesByTab()
         XMLOutput(windoInfo, tabData, widgetsByTab, self.filePath)
+       

@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 import time
 from GUIHandler import GUIHandler
 import random
@@ -8,12 +9,13 @@ a = GUIHandler("/home/patrick/Documents/Robot_Gui/config/BasicConfig.xml")
 dataPassDictionary = a.getDataPassDict()
 cap = cv2.VideoCapture(0)
 
-while (a.handleQuit(False)):
+while a.handleQuit(False):
     keys = dataPassDictionary.keys()
     for key in keys:
         if key != "webcam":
             dataPassDictionary[key] = random.randint(0, 9)
 
+    # Get next image
     _, frame = cap.read()
     dataPassDictionary["webcam"] = frame
 

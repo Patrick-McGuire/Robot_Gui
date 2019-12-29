@@ -23,10 +23,8 @@ class GUIHandler:
         self.updateInfo(self.dataPassDictionary)
 
     def handleQuit(self, manualQuit):
-        if (not self.guiInstance.is_alive() or not self.guiInstance.enable or manualQuit):
-            if (self.guiInstance.is_alive()):
-                self.guiInstance.window.quit()
-                # del self.guiInstance.window
+        if not self.guiInstance.is_alive() or not self.guiInstance.enable or manualQuit:
+            self.guiInstance.window.quit()
             return False
         return True
 

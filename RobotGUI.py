@@ -1,11 +1,13 @@
 #!/usr/bin/python
 
-from Tkinter import *
+import Tkinter
+from Tkinter import TclError
 import threading
 from XmlParser import XmlParser
 import time
 from XMLOutput import XMLOutput
 import Tkinter, Tkconstants, tkFileDialog
+
 
 class RobotGUI(threading.Thread):
     filledDataPass = {}
@@ -21,15 +23,13 @@ class RobotGUI(threading.Thread):
 
     def run(self):
         # Init the window
-        self.window = Tk()
+        self.window = Tkinter.Tk()
+        self.window.minsize(100, 100)
 
         self.parser = XmlParser(self.filePath, self.window)
         self.parser.guiGenerator.setParser(self.parser)
         self.allWidgetsList = self.parser.getAllWidgetsList()
         self.dataPassDictionary = self.parser.getDataPassDictionary()
-
-        # scrollbar = Scrollbar(self.window)
-        # scrollbar.pack(side=RIGHT, fill=Y)
 
         self.window.after(100, self.updateInfo)
 
@@ -42,21 +42,21 @@ class RobotGUI(threading.Thread):
     def updateInfo(self):
         try:
             self.window.getint()
-        except AttributeError:
-            return
 
-        # Update all widgets
-        for widget in self.allWidgetsList:
-            # Check to make sure there is actually data
-            if self.filledDataPass == 0:
-                pass
-            elif len(self.filledDataPass) == 0:
-                pass
-            else:
-                widget.updateInfo(self.filledDataPass)
+            # Update all widgets
+            for widget in self.allWidgetsList:
+                # Check to make sure there is actually data
+                if self.filledDataPass == 0:
+                    pass
+                elif len(self.filledDataPass) == 0:
+                    pass
+                else:
+                    widget.updateInfo(self.filledDataPass)
 
-            # Set this function to run again DON'T CHANGE TIME HERE
-        self.window.after(10, self.updateInfo)
+                    # Set this function to run again DON'T CHANGE TIME HERE
+            self.window.after(10, self.updateInfo)
+        except (AttributeError, TclError):
+            pass
 
         # Check if the main thread has ended, and if it has, quit the window
         for i in threading.enumerate():
@@ -70,3 +70,4 @@ class RobotGUI(threading.Thread):
 
     def setDataPassDictionary(self, data):
         self.filledDataPass = data
+     
