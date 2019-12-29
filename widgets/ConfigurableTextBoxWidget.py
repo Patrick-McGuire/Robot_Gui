@@ -5,15 +5,14 @@ from Constants import *
 import xml.etree.ElementTree as ET
 import time
 
+
 class ConfigurableTextBoxWidget(CustomBaseWidget):
-    widgetTitle = ""
     configInfo = []
     type = Constants.CONFIGURABLE_TEXT_BOX
 
     def __init__(self, configDict, window):
         self.window = window
-
-        self.title = configDict[Constants.TITTLE_ATTRIBUTE] + "\n"
+        self.title = configDict[Constants.TITTLE_ATTRIBUTE]
         self.tab = configDict[Constants.TAB_ATTRIBUTE]
         self.font = configDict[Constants.FONT_ATTRIBUTE]
         self.fontSize = int(configDict[Constants.FONT_SIZE_ATTRIBUTE])
@@ -28,8 +27,6 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
 
         self.configInfo = configDict[Constants.CONFIG_ATTRIBUTE]
 
-        self.widgetTitle = self.title
-
         self.nameVar = StringVar()
         self.updateInfo(0)
 
@@ -42,7 +39,7 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
                                   configDict[Constants.TITTLE_ATTRIBUTE], self.hidden)
 
     def updateInfo(self, data):
-        string = self.widgetTitle + "\n"
+        string = self.title + "\n"
 
         for i in range(len(self.configInfo)):
             if data == 0:
