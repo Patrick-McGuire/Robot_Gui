@@ -10,7 +10,7 @@ class XmlParser:
     tabData = []
 
     def __init__(self, filename, window):
-        self.guiGenerator = GUIGenerator(window)
+        self.guiGenerator = GUIGenerator(window, filename)
 
         self.allWidgetsList = []
         self.window = window

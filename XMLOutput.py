@@ -7,7 +7,7 @@ from xml.dom import minidom
 
 class XMLOutput:
 
-    def __init__(self, windowInfo, tabInfo, widgetsByTab):
+    def __init__(self, windowInfo, tabInfo, widgetsByTab, filename):
         self.windowInfo = windowInfo
         self.tabInfo = tabInfo
         self.widgetsByTab = widgetsByTab
@@ -16,7 +16,7 @@ class XMLOutput:
         self.getWindowStartTag()
         self.getTabTags()
 
-        myfile = open("config/BasicConfig.xml", "w")
+        myfile = open(filename, "w")
         myfile.write(self.prettify(self.fileData))
 
     def getWindowStartTag(self):

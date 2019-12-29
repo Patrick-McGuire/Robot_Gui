@@ -4,7 +4,7 @@ from GUIHandler import GUIHandler
 import random
 import cv2
 
-a = GUIHandler("config/BasicConfig.xml")
+a = GUIHandler("/home/patrick/Documents/Robot_Gui/config/BasicConfig.xml")
 dataPassDictionary = a.getDataPassDict()
 cap = cv2.VideoCapture(0)
 

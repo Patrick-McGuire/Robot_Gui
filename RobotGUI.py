@@ -5,6 +5,7 @@ import threading
 from XmlParser import XmlParser
 import time
 from XMLOutput import XMLOutput
+import Tkinter, Tkconstants, tkFileDialog
 
 class RobotGUI(threading.Thread):
     filledDataPass = {}
@@ -23,6 +24,7 @@ class RobotGUI(threading.Thread):
         self.window = Tk()
 
         self.parser = XmlParser(self.filePath, self.window)
+        self.parser.guiGenerator.setParser(self.parser)
         self.allWidgetsList = self.parser.getAllWidgetsList()
         self.dataPassDictionary = self.parser.getDataPassDictionary()
 
@@ -35,10 +37,6 @@ class RobotGUI(threading.Thread):
         self.window.mainloop()
 
     def onClosing(self):
-        windoInfo = [self.parser.getGuiName(), self.window.winfo_width(), self.window.winfo_height()]
-        tabData = self.parser.getTabInfo()
-        widgetsByTab = self.parser.getWidgesByTab()
-        a = XMLOutput(windoInfo, tabData,widgetsByTab)
         self.enable = False
 
     def updateInfo(self):
