@@ -15,6 +15,7 @@ class RobotGUI(threading.Thread):
     filePath = ""
     enable = True
     count = 0
+    lasttime = 0
 
     def __init__(self, filePath):
         self.filePath = filePath
@@ -40,6 +41,10 @@ class RobotGUI(threading.Thread):
         self.enable = False
 
     def updateInfo(self):
+        # Uncomment to get ticktime
+        # a = time.time()
+        # print(a - self.lasttime)
+        # self.lasttime = a
         try:
             self.window.getint()
 

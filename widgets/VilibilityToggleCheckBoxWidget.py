@@ -4,7 +4,7 @@ from CustomBaseWidget import *
 
 
 class VilibilityToggleCheckBoxWidget(CustomBaseWidget):
-
+    inited = False
     def __init__(self, tab, pos, window, text, controledWidget, widgNum):
         self.widgNum = widgNum
         self.window = window
@@ -25,11 +25,12 @@ class VilibilityToggleCheckBoxWidget(CustomBaseWidget):
             self.widget.place(x=(row * 200) + 20, y=col + 20)
         except ZeroDivisionError:
             pass
-
-        if(self.state.get() == True):
-            self.controledWidget.show()
-        else:
-            self.controledWidget.hide()
+        if(self.inited):
+            if(self.state.get() == True and self.controledWidget.isHidden):
+                self.controledWidget.show()
+            elif(not self.controledWidget.isHidden):
+                self.controledWidget.hide()
 
     def setState(self, state):
         self.state.set(state)
+        self.inited = True

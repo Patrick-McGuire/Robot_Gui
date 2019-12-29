@@ -3,7 +3,7 @@
 from CustomBaseWidget import *
 from Constants import *
 import xml.etree.ElementTree as ET
-
+import time
 
 class ConfigurableTextBoxWidget(CustomBaseWidget):
     widgetTitle = ""
