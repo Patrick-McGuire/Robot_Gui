@@ -15,13 +15,16 @@ class VilibilityToggleCheckBoxWidget(CustomBaseWidget):
         self.widget.grid(column=0, row=0)
         self.widget.place(x=pos[0], y=pos[1])
 
-        CustomBaseWidget.__init__(self, self.widget, True, pos[0], pos[1], window, text, True)
+        CustomBaseWidget.__init__(self, self.widget, True, pos[0], pos[1], window, text, False, True)
 
     def updateInfo(self, data):
-        windowHeight = self.window.winfo_height() - 70
-        row = ((self.widgNum * 20) / windowHeight)
-        col = (self.widgNum * 20) % windowHeight
-        self.widget.place(x=(row * 200) + 20, y=col + 20)
+        try:
+            windowHeight = self.window.winfo_height() - 70
+            row = ((self.widgNum * 20) / windowHeight)
+            col = (self.widgNum * 20) % windowHeight
+            self.widget.place(x=(row * 200) + 20, y=col + 20)
+        except ZeroDivisionError:
+            pass
 
         if(self.state.get() == True):
             self.controledWidget.show()

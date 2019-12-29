@@ -6,6 +6,8 @@ from GUIGenerator import GUIGenerator
 
 class XmlParser:
     dataPassDictionary = {}
+    widgesByTab = []
+    tabData = []
 
     def __init__(self, filename, window):
         self.guiGenerator = GUIGenerator(window)
@@ -26,12 +28,12 @@ class XmlParser:
             self.dataPassDictionary[value] = 0
 
         # Get attributes that will apply to the entire window
-        self.guiGenerator.setWindowName(
-            self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(Constants.TITTLE_ATTRIBUTE))
+        self.guiName = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(Constants.TITTLE_ATTRIBUTE)
         windowHeight = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
             Constants.HEIGHT_ATTRIBUTE)
         windowWidth = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
             Constants.WIDTH_ATTRIBUTE)
+        self.guiGenerator.setWindowName(self.guiName)
         self.guiGenerator.setWindowSize(windowWidth, windowHeight)
 
         # Get all of the tabs from the file
@@ -40,12 +42,16 @@ class XmlParser:
         # Generate all of the tabs
         for i in range(0, len(tabs)):
             # Add a new tab for every tab in the xml file
-            self.guiGenerator.addTab(tabs[i].getAttribute(Constants.TITTLE_ATTRIBUTE))
+            tabName = tabs[i].getAttribute(Constants.TITTLE_ATTRIBUTE)
+            self.guiGenerator.addTab(tabName)
+            self.tabData.append([tabName])
+            self.widgesByTab.append([])
 
             # Get a list of widgets for the current tab
             widgets = tabs[i].getElementsByTagName(Constants.WIDGET_NAME)
             for widget in widgets:
                 self.createWidget(widget, self.guiGenerator.getGuiTabs()[i + 1])
+                self.widgesByTab[i].append(self.guiGenerator.getAllWidgetsList()[-1])
 
         self.guiGenerator.postInit()
         self.guiGenerator.initTabs()
@@ -116,3 +122,12 @@ class XmlParser:
 
     def getConfigInfo(self):
         return self.configInfo
+
+    def getGuiName(self):
+        return self.guiName
+
+    def getTabInfo(self):
+        return self.tabData
+
+    def getWidgesByTab(self):
+        return self.widgesByTab

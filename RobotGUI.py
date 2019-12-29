@@ -4,7 +4,7 @@ from Tkinter import *
 import threading
 from XmlParser import XmlParser
 import time
-
+from XMLOutput import XMLOutput
 
 class RobotGUI(threading.Thread):
     filledDataPass = {}
@@ -35,6 +35,10 @@ class RobotGUI(threading.Thread):
         self.window.mainloop()
 
     def onClosing(self):
+        windoInfo = [self.parser.getGuiName(), self.window.winfo_width(), self.window.winfo_height()]
+        tabData = self.parser.getTabInfo()
+        widgetsByTab = self.parser.getWidgesByTab()
+        a = XMLOutput(windoInfo, tabData,widgetsByTab)
         self.enable = False
 
     def updateInfo(self):

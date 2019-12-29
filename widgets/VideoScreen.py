@@ -41,10 +41,7 @@ class VideoScreen(CustomBaseWidget):
         self.widget.grid(column=0, row=0)
         self.widget.place(x=xpos, y=ypos)
 
-        CustomBaseWidget.__init__(self, self.widget, draggabe, xpos, ypos, window, configDict[Constants.TITTLE_ATTRIBUTE])
-
-        # self.cap = cv2.VideoCapture(0)
-        # self.hasVideoStream = True
+        CustomBaseWidget.__init__(self, self.widget, draggabe, xpos, ypos, window, configDict[Constants.TITTLE_ATTRIBUTE], hidden)
 
         self.makeDraggable()
         if (hidden):

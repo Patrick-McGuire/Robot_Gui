@@ -7,7 +7,8 @@ class CustomBaseWidget:
     toggleTracker = False
     hideOnClick = False
     widgetTittle = ""
-    def __init__(self, widget, draggable, xPos, yPos, window, tittle, static=False):
+    isHidden = False
+    def __init__(self, widget, draggable, xPos, yPos, window, tittle, hidden, static=False):
         self.window = window
         self.widget = widget
         self.draggable = draggable
@@ -15,6 +16,8 @@ class CustomBaseWidget:
         self.yPos = yPos
         self.static = static
         self.widgetTittle = tittle
+        self.hidden = hidden
+
 
     def makeDraggable(self):
         if(not self.static):
@@ -73,12 +76,14 @@ class CustomBaseWidget:
         if(not self.static):
             self.widget.place_forget()
             self.hidderWidget.setState(False)
+            self.isHidden = True
 
     def show(self):
         if(not self.static):
             self.widget.grid()
             self.widget.place(x=self.xPos, y=self.yPos)
             self.hidderWidget.setState(True)
+            self.isHidden = False
 
     def dragOn(self):
         self.draggable = True
@@ -88,6 +93,8 @@ class CustomBaseWidget:
 
     def setHidderWidget(self, hidderWidget):
         self.hidderWidget = hidderWidget
+        if(self.hidden):
+            self.hide()
 
     def setAllWidsList(self, allWidgetsList):
         self.allWidgetsList = allWidgetsList

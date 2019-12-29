@@ -1,47 +1,43 @@
+#!/usr/bin/python
+
 from Tkinter import *
-import cv2
-from PIL import Image, ImageTk
+import Tkinter, Tkconstants, tkFileDialog
+
+root = Tk(  )
+
+#This is where we lauch the file manager bar.
+def OpenFile():
+    name = askopenfilename(initialdir="C:/Users/Batman/Documents/Programming/tkinter/",
+                           filetypes =(("Text File", "*.txt"),("All Files","*.*")),
+                           title = "Choose a file."
+                           )
+    print (name)
+    #Using try in case user types in unknown file or closes without choosing a file.
+    try:
+        with open(name,'r') as UseFile:
+            print(UseFile.read())
+    except:
+        print("No file exists")
 
 
-def onDragStart(event):
-    widget = event.widget
-    widget._drag_start_x = event.x
-    widget._drag_start_y = event.y
+Title = root.title( "File Opener")
+label = ttk.Label(root, text ="I'm BATMAN!!!",foreground="red",font=("Helvetica", 16))
+label.pack()
+
+#Menu Bar
+
+menu = Menu(root)
+root.config(menu=menu)
+
+file = Menu(menu)
+
+file.add_command(label = 'Open', command = OpenFile)
+file.add_command(label = 'Exit', command = lambda:exit())
+
+menu.add_cascade(label = 'File', menu = file)
 
 
-def onDragMotion(event):
-    widget = event.widget
-    x = widget.winfo_x() - widget._drag_start_x + event.x
-    y = widget.winfo_y() - widget._drag_start_y + event.y
-    widget.place(x=x, y=y)
 
 
-def makeDraggable(a):
-    a.bind("<Button-1>", onDragStart)
-    a.bind("<B1-Motion>", onDragMotion)
 
-
-cap = cv2.VideoCapture(0)
-
-window = Tk()
-lmain = Label(window)
-
-makeDraggable(lmain)
-lmain.pack()
-
-
-def show_frame():
-    height = 1900
-    _, frame = cap.read()
-    frame = cv2.resize(frame, (height, int(height * .75)))
-    frame = cv2.flip(frame, 1)
-    cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
-    img = Image.fromarray(cv2image)
-    imgtk = ImageTk.PhotoImage(image=img)
-    lmain.imgtk = imgtk
-    lmain.configure(image=imgtk)
-    lmain.after(10, show_frame)
-
-
-show_frame()
-window.mainloop()
+root.mainloop()
