@@ -2,17 +2,25 @@
 import ttk
 from widgets import ConfigurableTextBoxWidget, VideoScreen, VilibilityToggleCheckBoxWidget
 from Tkinter import *
+from XMLOutput import XMLOutput
+import tkFileDialog
 
 
 class GUIGenerator:
     globalLockedState = True
     guiTabs = []
     allWidgetsList = []
-    menuList = []
-
-    def __init__(self, window):
+    menueList = []
+    
+    def __init__(self, window, filePath):
         self.window = window
         self.tab_control = ttk.Notebook(self.window)
+        self.filePath = filePath
+        self.shortFilePath = list(self.filePath)
+        for i in range(len(self.shortFilePath) - 1, 0, -1):
+            if(self.shortFilePath.pop(i) == "/"):
+                break
+        self.shortFilePath = "".join(self.shortFilePath)
 
     # Add all of the basic features for operation
     def preInit(self):
@@ -30,22 +38,27 @@ class GUIGenerator:
             self.allWidgetsList[i].setAllWidsList(self.allWidgetsList)
 
         # Menu stuff
-        basicMenue = [["Lock All Widgets", self.lockAllWidgets], ["Unlock All Widgets", self.unlockAllWidgets],
-                      ["Enable Hide On Click", self.hideOnClick], ["Disable Hide On Click", self.disableOnClick],
-                      ["Show All Widgets", self.showAllWidgets]]
-        self.newMenu("Settings", basicMenue)
+        basicMenue = [["Lock All Widgets", self.lockAllWidgets], ["Unlock All Widgets", self.unlockAllWidgets], ["Enable Hide On Click", self.hideOnClick], ["Disable Hide On Click", self.disableOnClick], ["Show All Widgets", self.showAllWidgets]]
+        saveMenue = [["Save as", self.saveAs], ["Save", self.save]]
+        menueNames = ["File", "Settings"]
+        self.newMenue(menueNames, [saveMenue, basicMenue])
 
         # Key binds
         self.window.bind('<Escape>', self.disableOnClick)
         self.window.bind('<grave>', self.hideOnClick)
         self.window.bind('<F1>', self.toggleLockAllWidgets)
+        self.window.bind('<Control-s>', self.save)
+        self.window.bind('<Control-Shift-S>', self.saveAs)
 
     def newMenu(self, name, options):
         menu = Menu(self.window)
-        new_item = Menu(menu, tearoff=0)
-        for i in options:
-            new_item.add_command(label=i[0], command=i[1])
-        menu.add_cascade(label=name, menu=new_item)
+        menuItems = []
+        for j in range(len(options)):
+            menuItems.append(Menu(menu, tearoff=0))
+            for i in options[j]:
+                menuItems[-1].add_command(label=i[0], command=i[1])
+            menu.add_cascade(label=name[j], menu=menuItems[-1])
+
         self.window.config(menu=menu)
 
     # Add a tab to the window
@@ -104,3 +117,22 @@ class GUIGenerator:
     def disableOnClick(self, e=0):
         for widget in self.allWidgetsList:
             widget.hideOnClick = False
+
+    def setParser(self, parser):
+        self.parser = parser
+
+    def saveAs(self, e=0):
+        filename = tkFileDialog.asksaveasfilename(initialdir=self.shortFilePath, title="Select file",
+                                                  filetypes=(("xml files", "*.xml"), ("all files", "*.*")))
+        if(type(filename) == type("") and filename != ""):
+            self.saveXML(filename)
+
+    def save(self, e=0):
+        self.saveXML(self.filePath)
+
+    def saveXML(self, filepathy):
+        windoInfo = [self.parser.getGuiName(), self.window.winfo_width(), self.window.winfo_height()]
+        tabData = self.parser.getTabInfo()
+        widgetsByTab = self.parser.getWidgesByTab()
+        XMLOutput(windoInfo, tabData, widgetsByTab, self.filePath)
+       

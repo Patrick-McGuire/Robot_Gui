@@ -4,6 +4,9 @@ import Tkinter
 from Tkinter import TclError
 import threading
 from XmlParser import XmlParser
+import time
+from XMLOutput import XMLOutput
+import Tkinter, Tkconstants, tkFileDialog
 
 
 class RobotGUI(threading.Thread):
@@ -24,6 +27,7 @@ class RobotGUI(threading.Thread):
         self.window.minsize(100, 100)
 
         self.parser = XmlParser(self.filePath, self.window)
+        self.parser.guiGenerator.setParser(self.parser)
         self.allWidgetsList = self.parser.getAllWidgetsList()
         self.dataPassDictionary = self.parser.getDataPassDictionary()
 
@@ -66,3 +70,4 @@ class RobotGUI(threading.Thread):
 
     def setDataPassDictionary(self, data):
         self.filledDataPass = data
+     

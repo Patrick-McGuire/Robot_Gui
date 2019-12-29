@@ -49,7 +49,7 @@ class VideoScreen(CustomBaseWidget):
         self.widget.grid(column=0, row=0)
         self.widget.place(x=xpos, y=ypos)
 
-        CustomBaseWidget.__init__(self, self.widget, draggable, xpos, ypos, window, title, static=static)
+        CustomBaseWidget.__init__(self, self.widget, draggabe, xpos, ypos, window, title, hidden, static=static)
 
         self.makeDraggable()
         if hidden:
