@@ -18,6 +18,8 @@ class CustomBaseWidget:
         self.widgetTittle = tittle
         self.hidden = hidden
 
+        self.makeDraggable()
+
 
     def makeDraggable(self):
         if(not self.static):

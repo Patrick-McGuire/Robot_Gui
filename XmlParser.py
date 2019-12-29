@@ -99,12 +99,16 @@ class XmlParser:
             widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
             self.guiGenerator.createConfigurableTextBox(widgetInfo)
         elif type == Constants.VIDEO_WINDOW_TYPE:
-            lines = widget.getElementsByTagName(Constants.LINE_NAME)
-            for line in lines:
-                value = line.getAttribute(Constants.VALUE_ATTRIBUTE)
-                self.configInfo.append(value)
+            # lines = widget.getElementsByTagName(Constants.LINE_NAME)
+            # for line in lines:
+            #     value = line.getAttribute(Constants.VALUE_ATTRIBUTE)
+            #     self.configInfo.append(value)
+            widgetInfo[Constants.SOURCE_ATTRIBUTE] = self.getAttribute(widget, Constants.SOURCE_ATTRIBUTE, "webcam")
+            widgetInfo[Constants.DIMENSIONS_ATTRIBUTE] = self.getAttribute(widget, Constants.DIMENSIONS_ATTRIBUTE, "800x600")
+            widgetInfo[Constants.FULLSCREEN_ATTRIBUTE] = self.getAttribute(widget, Constants.FULLSCREEN_ATTRIBUTE, "False")
+            widgetInfo[Constants.LOCK_ASPECT_RATIO_ATTRIBUTE] = self.getAttribute(widget, Constants.LOCK_ASPECT_RATIO_ATTRIBUTE, "True")
 
-            widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
+            # widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
 
             self.guiGenerator.createVideoWindow(widgetInfo)
         else:

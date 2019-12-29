@@ -27,6 +27,10 @@ class Constants:
     RELIEF_ATTRIBUTE = "relief"
     WIDTH_ATTRIBUTE = "width"
     HEIGHT_ATTRIBUTE = "height"
+    SOURCE_ATTRIBUTE = "source"
+    DIMENSIONS_ATTRIBUTE = "dimensions"
+    FULLSCREEN_ATTRIBUTE = "fullscreen"
+    LOCK_ASPECT_RATIO_ATTRIBUTE = "lockAspectRatio"
     # ATTRIBUTE
     BATTERY_VOLTAGE_VALUE = "batteryVoltage"
     V5_VOLTAGE_VALUE = "v5Voltage"

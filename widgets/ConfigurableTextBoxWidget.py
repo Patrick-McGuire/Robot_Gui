@@ -9,6 +9,7 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
     widgetTitle = ""
     configInfo = []
     type = Constants.CONFIGURABLE_TEXT_BOX
+
     def __init__(self, configDict, window):
         self.window = window
 
@@ -32,13 +33,13 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
         self.nameVar = StringVar()
         self.updateInfo(0)
 
-        self.widget = Label(self.tab, textvariable=self.nameVar, borderwidth=self.borderwidth, relief=self.relief, background=self.backgroundColor, foreground=self.foregroundColor, font=(self.font, self.fontSize))
+        self.widget = Label(self.tab, textvariable=self.nameVar, borderwidth=self.borderwidth, relief=self.relief,
+                            background=self.backgroundColor, foreground=self.foregroundColor,
+                            font=(self.font, self.fontSize))
         self.widget.grid(column=0, row=0)
         self.widget.place(x=self.xpos, y=self.ypos)
-        CustomBaseWidget.__init__(self, self.widget, self.draggabe, self.xpos, self.ypos, window, configDict[Constants.TITTLE_ATTRIBUTE], self.hidden)
-
-        self.makeDraggable()
-
+        CustomBaseWidget.__init__(self, self.widget, self.draggabe, self.xpos, self.ypos, window,
+                                  configDict[Constants.TITTLE_ATTRIBUTE], self.hidden)
 
     def updateInfo(self, data):
         string = self.widgetTitle + "\n"
@@ -75,4 +76,3 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
             items.append(ET.SubElement(tag, Constants.LINE_NAME))
             items[-1].set(Constants.LABEL_ATTRIBUTE, line[0])
             items[-1].set(Constants.VALUE_ATTRIBUTE, line[1])
-
