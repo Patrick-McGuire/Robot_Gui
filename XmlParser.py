@@ -29,7 +29,8 @@ class XmlParser:
             self.dataPassDictionary[value] = 0
 
         # Get attributes that will apply to the entire window
-        self.guiName = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(Constants.TITTLE_ATTRIBUTE)
+        self.guiName = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
+            Constants.TITTLE_ATTRIBUTE)
         windowHeight = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
             Constants.HEIGHT_ATTRIBUTE)
         windowWidth = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(

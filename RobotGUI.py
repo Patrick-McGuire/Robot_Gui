@@ -70,4 +70,3 @@ class RobotGUI(threading.Thread):
 
     def setDataPassDictionary(self, data):
         self.filledDataPass = data
-     

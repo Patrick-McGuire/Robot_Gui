@@ -12,7 +12,6 @@ class XMLOutput:
         self.tabInfo = tabInfo
         self.widgetsByTab = widgetsByTab
 
-
         self.getWindowStartTag()
         self.getTabTags()
 

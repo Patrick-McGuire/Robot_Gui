@@ -11,14 +11,15 @@ class GUIGenerator:
     guiTabs = []
     allWidgetsList = []
     menueList = []
-    
+
     def __init__(self, window, filePath):
         self.window = window
         self.tab_control = ttk.Notebook(self.window)
+
         self.filePath = filePath
         self.shortFilePath = list(self.filePath)
         for i in range(len(self.shortFilePath) - 1, 0, -1):
-            if(self.shortFilePath.pop(i) == "/"):
+            if (self.shortFilePath.pop(i) == "/"):
                 break
         self.shortFilePath = "".join(self.shortFilePath)
 
@@ -38,10 +39,12 @@ class GUIGenerator:
             self.allWidgetsList[i].setAllWidsList(self.allWidgetsList)
 
         # Menu stuff
-        basicMenue = [["Lock All Widgets", self.lockAllWidgets], ["Unlock All Widgets", self.unlockAllWidgets], ["Enable Hide On Click", self.hideOnClick], ["Disable Hide On Click", self.disableOnClick], ["Show All Widgets", self.showAllWidgets]]
+        basicMenue = [["Lock All Widgets", self.lockAllWidgets], ["Unlock All Widgets", self.unlockAllWidgets],
+                      ["Enable Hide On Click", self.hideOnClick], ["Disable Hide On Click", self.disableOnClick],
+                      ["Show All Widgets", self.showAllWidgets]]
         saveMenue = [["Save as", self.saveAs], ["Save", self.save]]
         menueNames = ["File", "Settings"]
-        self.newMenue(menueNames, [saveMenue, basicMenue])
+        self.newMenu(menueNames, [saveMenue, basicMenue])
 
         # Key binds
         self.window.bind('<Escape>', self.disableOnClick)
@@ -124,7 +127,7 @@ class GUIGenerator:
     def saveAs(self, e=0):
         filename = tkFileDialog.asksaveasfilename(initialdir=self.shortFilePath, title="Select file",
                                                   filetypes=(("xml files", "*.xml"), ("all files", "*.*")))
-        if(type(filename) == type("") and filename != ""):
+        if (type(filename) == type("") and filename != ""):
             self.saveXML(filename)
 
     def save(self, e=0):
@@ -135,4 +138,3 @@ class GUIGenerator:
         tabData = self.parser.getTabInfo()
         widgetsByTab = self.parser.getWidgesByTab()
         XMLOutput(windoInfo, tabData, widgetsByTab, self.filePath)
-       
