@@ -22,12 +22,6 @@ class XmlParser:
         # Turn the file into a xml file
         self.document = xml.dom.minidom.parse(filename)
 
-        # Get the keys for the the data pass dictionary, and insert them in to the dict
-        lines = self.document.getElementsByTagName(Constants.LINE_NAME)
-        for line in lines:
-            value = line.getAttribute(Constants.VALUE_ATTRIBUTE)
-            self.dataPassDictionary[value] = 0
-
         # Get attributes that will apply to the entire window
         self.guiName = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
             Constants.TITTLE_ATTRIBUTE)
@@ -96,19 +90,18 @@ class XmlParser:
                 value = line.getAttribute(Constants.VALUE_ATTRIBUTE)
                 self.configInfo.append([label, value])
 
+                self.dataPassDictionary[value] = 0
+
             widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
             self.guiGenerator.createConfigurableTextBox(widgetInfo)
         elif type == Constants.VIDEO_WINDOW_TYPE:
-            # lines = widget.getElementsByTagName(Constants.LINE_NAME)
-            # for line in lines:
-            #     value = line.getAttribute(Constants.VALUE_ATTRIBUTE)
-            #     self.configInfo.append(value)
             widgetInfo[Constants.SOURCE_ATTRIBUTE] = self.getAttribute(widget, Constants.SOURCE_ATTRIBUTE, "webcam")
             widgetInfo[Constants.DIMENSIONS_ATTRIBUTE] = self.getAttribute(widget, Constants.DIMENSIONS_ATTRIBUTE, "800x600")
             widgetInfo[Constants.FULLSCREEN_ATTRIBUTE] = self.getAttribute(widget, Constants.FULLSCREEN_ATTRIBUTE, "False")
             widgetInfo[Constants.LOCK_ASPECT_RATIO_ATTRIBUTE] = self.getAttribute(widget, Constants.LOCK_ASPECT_RATIO_ATTRIBUTE, "True")
 
-            # widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
+            #Define data pass values needed
+            self.dataPassDictionary[widgetInfo[Constants.SOURCE_ATTRIBUTE]] = 0
 
             self.guiGenerator.createVideoWindow(widgetInfo)
         else:
