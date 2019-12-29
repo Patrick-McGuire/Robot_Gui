@@ -1,12 +1,11 @@
 #!/usr/bin/python
 
 import Tkinter
-from Tkinter import TclError
 import threading
-from XmlParser import XmlParser
 import time
-from XMLOutput import XMLOutput
-import Tkinter, Tkconstants, tkFileDialog
+from Tkinter import TclError
+
+from XmlParser import XmlParser
 
 
 class RobotGUI(threading.Thread):
@@ -15,10 +14,11 @@ class RobotGUI(threading.Thread):
     filePath = ""
     enable = True
     count = 0
-    lasttime = 0
+    lastTime = 0
 
     def __init__(self, filePath):
         self.filePath = filePath
+        self.frameRate = float(40)
         threading.Thread.__init__(self)
         self.start()
 
@@ -41,10 +41,12 @@ class RobotGUI(threading.Thread):
         self.enable = False
 
     def updateInfo(self):
-        # Uncomment to get ticktime
-        # a = time.time()
-        # print(a - self.lasttime)
-        # self.lasttime = a
+        #Framerate measurer
+        startTime = time.time()
+        fullLoopTime = startTime - self.lastTime
+        self.lastTime = startTime
+
+        #Update info
         try:
             self.window.getint()
 
@@ -57,9 +59,6 @@ class RobotGUI(threading.Thread):
                     pass
                 else:
                     widget.updateInfo(self.filledDataPass)
-
-                    # Set this function to run again DON'T CHANGE TIME HERE
-            self.window.after(10, self.updateInfo)
         except (AttributeError, TclError):
             pass
 
@@ -69,6 +68,17 @@ class RobotGUI(threading.Thread):
                 if not i.is_alive():
                     self.enable = False
                     self.window.destroy()
+
+        # Framerate controller
+        desiredLoopTime = 1 / self.frameRate
+        currentTime = time.time()
+        loopTime = currentTime - startTime
+        timeDelta = (desiredLoopTime - loopTime) * 1000
+        if timeDelta < 1:
+            timeDelta = 1
+
+        # Set this function to run again
+        self.window.after(int(timeDelta), self.updateInfo)
 
     def getDataPassDictionary(self):
         return self.dataPassDictionary
