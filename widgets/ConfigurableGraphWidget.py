@@ -49,13 +49,10 @@ class ConfigurableGraphWidget(CustomBaseWidget):
         CustomBaseWidget.__init__(self, self.widget, draggable, xpos, ypos, window, self.title, hidden)
 
     def updateInfo(self, data):
-        try:
-            test = data[self.configInfo[0][1]]
-        except:
-            e = sys.exc_info()[0]
-            # print(e)
+        if not self.configInfo[0][1] in data:
             return
 
+        legend = []
         self.xList.append(time.time())
 
         if len(self.xList) >= 100:
@@ -67,6 +64,7 @@ class ConfigurableGraphWidget(CustomBaseWidget):
         self.plot.clear()
         for i in range(len(self.configInfo)):
             value = data[self.configInfo[i][1]]
+            legend.append(self.configInfo[i][0])
 
             self.yList[i].append(value)
 
@@ -76,4 +74,5 @@ class ConfigurableGraphWidget(CustomBaseWidget):
             self.plot.set_title(self.title)
             self.plot.plot(self.xList, self.yList[i])
 
+        self.plot.legend(legend, loc='upper left')
         self.canvas.show()

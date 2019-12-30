@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
-from CustomBaseWidget import *
-from Constants import *
 import xml.etree.ElementTree as ET
-import time
+
+from Constants import *
+from CustomBaseWidget import *
 
 
 class ConfigurableTextBoxWidget(CustomBaseWidget):
@@ -43,10 +43,13 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
 
         for i in range(len(self.configInfo)):
             string += "\n"
-            try:
-                string += " " + self.configInfo[i][0] + "\t" + str(data[self.configInfo[i][1]]) + " "
-            except:
+
+            if data == 0:
                 string += " " + self.configInfo[i][0] + "\t" + "No data "
+            elif not self.configInfo[i][1] in data:
+                string += " " + self.configInfo[i][0] + "\t" + "No data "
+            else:
+                string += " " + self.configInfo[i][0] + "\t" + str(data[self.configInfo[i][1]]) + " "
 
         self.nameVar.set(string)
 
