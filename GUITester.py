@@ -19,7 +19,7 @@ while a.handleQuit(False):
 
     if(random.randint(0,98) > 95):
         spinnySign = spinnySign * -1
-    lastSpinny += (random.randint(0,100)) * spinnySign * .1 
+    lastSpinny += (random.randint(0,100)) * spinnySign * .1
     dataPassDictionary["spinny"] = lastSpinny
 
     # Get next image

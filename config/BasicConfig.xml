@@ -13,7 +13,8 @@
 		<widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Powerasdff Stats" type="ConfigurableTextBox" x="300" y="300"/>
 	</tab>
 	<tab title="Config">
-		<widget draggable="True" hidden="False" size="300" title="Spinny" type="compass" x="1022" y="190"/>
+		<widget draggable="True" hidden="False" size="20" source="spinny" title="Spinny" type="compass" x="1022" y="190"/>
+		<widget draggable="True" hidden="False" size="200" source="spinny" title="Spinny" type="compass" x="1068" y="221"/>
 		<widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Power Stats2" type="ConfigurableTextBox" x="301" y="198">
 			<line label="Battery Voltage2" value="batteryVoltage"/>
 			<line label="5v Bus Voltage2" value="v5Voltage"/>

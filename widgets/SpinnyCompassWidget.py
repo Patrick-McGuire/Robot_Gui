@@ -63,5 +63,6 @@ class SpinnyCompassWidget(CustomBaseWidget):
         tag.set(Constants.DRAGGABLE_ATTRIBUTE, str(self.draggable))
         tag.set(Constants.TYPE_ATTRIBUTE, str(self.type))
         tag.set(Constants.SIZE_ATTRIBUTE, str(self.size))
+        tag.set(Constants.SOURCE_ATTRIBUTE, str(self.source))
 
 
