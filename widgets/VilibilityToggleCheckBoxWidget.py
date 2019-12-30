@@ -26,9 +26,9 @@ class VilibilityToggleCheckBoxWidget(CustomBaseWidget):
         except ZeroDivisionError:
             pass
         if(self.inited):
-            if(self.state.get() == True and self.controledWidget.isHidden):
+            if(self.state.get() == True):
                 self.controledWidget.show()
-            elif(not self.controledWidget.isHidden):
+            else:
                 self.controledWidget.hide()
 
     def setState(self, state):

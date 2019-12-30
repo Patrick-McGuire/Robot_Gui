@@ -89,7 +89,7 @@ class XmlParser:
         # Code to handle specific types of widgets
         self.configInfo = []
         type = widget.getAttribute(Constants.TYPE_ATTRIBUTE)
-        if type == Constants.CONFIGURABLE_TEXT_BOX:
+        if type == Constants.CONFIGURABLE_TEXT_BOX_TYPE:
             lines = widget.getElementsByTagName(Constants.LINE_NAME)
             for line in lines:
                 label = line.getAttribute(Constants.LABEL_ATTRIBUTE)
@@ -111,6 +111,9 @@ class XmlParser:
             # widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
 
             self.guiGenerator.createVideoWindow(widgetInfo)
+        elif type == Constants.COMPASS_TYPE:
+            widgetInfo[Constants.SIZE_ATTRIBUTE] = self.getAttribute(widget, Constants.SIZE_ATTRIBUTE, "200")
+            self.guiGenerator.createCompass(widgetInfo)
         else:
             print("Could not create widget {0}: type {1} not supported".format(title, type))
 

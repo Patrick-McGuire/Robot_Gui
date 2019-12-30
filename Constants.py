@@ -6,8 +6,9 @@ class Constants:
     WIDGET_NAME = "widget"
     LINE_NAME = "line"
 
-    CONFIGURABLE_TEXT_BOX = "ConfigurableTextBox"
+    CONFIGURABLE_TEXT_BOX_TYPE = "ConfigurableTextBox"
     VIDEO_WINDOW_TYPE = "video"
+    COMPASS_TYPE = "compass"
 
     CONFIG_ATTRIBUTE = "config"
     TAB_ATTRIBUTE = "tab"
@@ -31,6 +32,7 @@ class Constants:
     DIMENSIONS_ATTRIBUTE = "dimensions"
     FULLSCREEN_ATTRIBUTE = "fullscreen"
     LOCK_ASPECT_RATIO_ATTRIBUTE = "lockAspectRatio"
+    SIZE_ATTRIBUTE = "size"
     # ATTRIBUTE
     BATTERY_VOLTAGE_VALUE = "batteryVoltage"
     V5_VOLTAGE_VALUE = "v5Voltage"
