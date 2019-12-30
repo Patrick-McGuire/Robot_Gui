@@ -52,18 +52,18 @@ class RobotGUI(threading.Thread):
         # Update info
         try:
             self.window.getint()
+        except (AttributeError, TclError) as e:
+            print(e)
 
-            # Update all widgets
-            for widget in self.allWidgetsList:
-                # Check to make sure there is actually data
-                if self.filledDataPass == 0:
-                    pass
-                elif len(self.filledDataPass) == 0:
-                    pass
-                else:
-                    widget.updateInfo(self.filledDataPass)
-        except (AttributeError, TclError):
-            pass
+        # Update all widgets
+        for widget in self.allWidgetsList:
+            # Check to make sure there is actually data
+            if self.filledDataPass == 0:
+                pass
+            elif len(self.filledDataPass) == 0:
+                pass
+            else:
+                widget.updateInfo(self.filledDataPass)
 
         # Check if the main thread has ended, and if it has, quit the window
         for i in threading.enumerate():

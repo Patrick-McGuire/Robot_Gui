@@ -48,12 +48,13 @@ class VideoScreen(CustomBaseWidget):
         self.height = height
 
     def updateInfo(self, data):
-        try:
-            frame = data[self.videoStream]
-            self.hasVideoStream = True
-            self.displayImage(frame)
-        except:
-            pass
+        if data == 0 or not self.videoStream in data:
+            self.hasVideoStream = False
+            return
+
+        frame = data[self.videoStream]
+        self.hasVideoStream = True
+        self.displayImage(frame)
 
     def displayImage(self, frame):
         height, width, channels = frame.shape
