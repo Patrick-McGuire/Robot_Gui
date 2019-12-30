@@ -19,6 +19,9 @@
       <line label="3.3v Bus Voltage2" value="v33Voltage"/>
       <line label="Current Draw2" value="current"/>
     </widget>
+
+    <widget draggable="True" hidden="False" title="Test" type="ConfigurableGraph" x="300" y="300"/>
+
     <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Po1werasdff Stats" type="ConfigurableTextBox" x="300" y="300"/>
     <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Pow2erasdff Stats" type="ConfigurableTextBox" x="310" y="300"/>
     <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Powe3rasdff Stats" type="ConfigurableTextBox" x="319" y="270"/>
