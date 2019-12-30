@@ -18,7 +18,7 @@ class RobotGUI(threading.Thread):
 
     def __init__(self, filePath):
         self.filePath = filePath
-        self.frameRate = float(60)
+        self.frameRate = float(30)
         threading.Thread.__init__(self)
         self.start()
 
