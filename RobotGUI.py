@@ -62,8 +62,8 @@ class RobotGUI(threading.Thread):
                     pass
                 else:
                     widget.updateInfo(self.filledDataPass)
-        except (AttributeError, TclError):
-            pass
+        except (AttributeError, TclError) as e:
+            print(e)
 
         # Check if the main thread has ended, and if it has, quit the window
         for i in threading.enumerate():

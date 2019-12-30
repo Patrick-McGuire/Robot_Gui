@@ -11,6 +11,7 @@ from Constants import *
 
 import math, time
 
+
 class ConfigurableGraphWidget(CustomBaseWidget):
     widgetTitle = ""
     configInfo = []
@@ -33,7 +34,7 @@ class ConfigurableGraphWidget(CustomBaseWidget):
         borderwidth = int(configDict[Constants.BORDER_WIDTH_ATTRIBUTE])
         relief = configDict[Constants.RELIEF_ATTRIBUTE]
 
-        #self.configInfo = configDict[Constants.CONFIG_ATTRIBUTE]
+        # self.configInfo = configDict[Constants.CONFIG_ATTRIBUTE]
 
         self.figure = Figure(figsize=(5, 4), dpi=100)
         self.plot = self.figure.add_subplot(111)
@@ -42,16 +43,18 @@ class ConfigurableGraphWidget(CustomBaseWidget):
         self.widget = self.canvas.get_tk_widget()
         self.widget.grid(column=xpos, row=ypos)
 
-        #self.widget.place(x=self.xpos, y=self.ypos)
+        # self.widget.place(x=self.xpos, y=self.ypos)
 
         CustomBaseWidget.__init__(self, self.widget, draggable, xpos, ypos, window, self.title, hidden)
 
     def updateInfo(self, data):
-        return
-        #value = data["batteryVoltage"]
+        try:
+            value = data["batteryVoltage"]
+        except:
+            return
 
         self.xList.append(time.time())
-        self.yList.append(math.sin(time.time()))
+        self.yList.append(value)
 
         if len(self.xList) >= 100:
             self.xList.pop(0)
@@ -60,4 +63,4 @@ class ConfigurableGraphWidget(CustomBaseWidget):
         self.plot.clear()
         self.plot.plot(self.xList, self.yList)
 
-        self.widget.show()
+        self.canvas.show()
