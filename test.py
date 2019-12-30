@@ -23,7 +23,7 @@ root = Tkinter.Tk()
 canvas = Canvas(root, width=600, height=600, bg="Black")
 # canvas.create_oval(0,0,600,600, fill="Black")
 
-# make_draggable(canvas)
+make_draggable(canvas)
 canvas.grid(column=0, row=0)
 
 image1 = Image2.open('Assets/compas.png').resize((600, 600), Image2.ANTIALIAS)

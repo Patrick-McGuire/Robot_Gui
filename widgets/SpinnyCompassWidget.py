@@ -3,7 +3,6 @@
 from CustomBaseWidget import *
 from Constants import *
 import xml.etree.ElementTree as ET
-import Tkinter
 from PIL import ImageTk
 from PIL import Image as PILImage
 
@@ -55,18 +54,9 @@ class SpinnyCompassWidget(CustomBaseWidget):
         tag.set(Constants.TITTLE_ATTRIBUTE, str(self.title))
         tag.set(Constants.X_POS_ATTRIBUTE, str(self.xPos))
         tag.set(Constants.Y_POS_ATTRIBUTE, str(self.yPos))
-        tag.set(Constants.FONT_ATTRIBUTE, str(self.font))
-        tag.set(Constants.FONT_SIZE_ATTRIBUTE, str(self.fontSize))
-        tag.set(Constants.BACKGROUND_ATTRIBUTE, str(self.backgroundColor))
-        tag.set(Constants.FOREGROUND_ATTRIBUTE, str(self.foregroundColor))
-        tag.set(Constants.RELIEF_ATTRIBUTE, str(self.relief))
-        tag.set(Constants.BORDER_WIDTH_ATTRIBUTE, str(self.borderwidth))
         tag.set(Constants.HIDDEN_ATTRIBUTE, str(self.isHidden))
         tag.set(Constants.DRAGGABLE_ATTRIBUTE, str(self.draggable))
         tag.set(Constants.TYPE_ATTRIBUTE, str(self.type))
+        tag.set(Constants.SIZE_ATTRIBUTE, str(self.size))
 
-        items = []
-        for line in self.configInfo:
-            items.append(ET.SubElement(tag, Constants.LINE_NAME))
-            items[-1].set(Constants.LABEL_ATTRIBUTE, line[0])
-            items[-1].set(Constants.VALUE_ATTRIBUTE, line[1])
+

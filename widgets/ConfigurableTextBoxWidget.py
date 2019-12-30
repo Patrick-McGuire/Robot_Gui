@@ -39,17 +39,14 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
                                   configDict[Constants.TITTLE_ATTRIBUTE], self.hidden)
 
     def updateInfo(self, data):
-        string = self.title + "\n"
+        string = self.title
 
         for i in range(len(self.configInfo)):
-            if data == 0:
-                string += " " + self.configInfo[i][0] + "\t" + "No data "
-            elif len(data) == 0:
-                string += " " + self.configInfo[i][0] + "\t" + "No data "
-            else:
-                string += " " + self.configInfo[i][0] + "\t" + str(data[self.configInfo[i][1]]) + " "
-
             string += "\n"
+            try:
+                string += " " + self.configInfo[i][0] + "\t" + str(data[self.configInfo[i][1]]) + " "
+            except:
+                string += " " + self.configInfo[i][0] + "\t" + "No data "
 
         self.nameVar.set(string)
 

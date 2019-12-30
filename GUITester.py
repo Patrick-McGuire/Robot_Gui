@@ -5,15 +5,16 @@ from GUIHandler import GUIHandler
 import random
 import cv2
 
-a = GUIHandler("/home/patrick/Documents/Robot_Gui/config/BasicConfig.xml")
+a = GUIHandler("config/BasicConfig.xml")
 dataPassDictionary = a.getDataPassDict()
+print (dataPassDictionary)
 cap = cv2.VideoCapture(0)
 
 while a.handleQuit(False):
     keys = dataPassDictionary.keys()
     for key in keys:
-        if key != "webcam":
-            dataPassDictionary[key] = random.randint(0, 9)
+        if key != "webcam" or key != "fullLoopTime":
+            dataPassDictionary[key] = random.randint(10, 19)
 
     # Get next image
     _, frame = cap.read()
@@ -21,4 +22,4 @@ while a.handleQuit(False):
 
     a.updateInfo(dataPassDictionary)
 
-    time.sleep(.01)
+    time.sleep(.025)
