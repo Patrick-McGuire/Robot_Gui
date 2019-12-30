@@ -110,7 +110,15 @@ class XmlParser:
             self.dataPassDictionary[widgetInfo[Constants.SOURCE_ATTRIBUTE]] = 0
             self.guiGenerator.createCompass(widgetInfo)
         elif type == "ConfigurableGraph":
-            #widgetInfo = []
+            lines = widget.getElementsByTagName(Constants.LINE_NAME)
+            for line in lines:
+                label = line.getAttribute(Constants.LABEL_ATTRIBUTE)
+                value = line.getAttribute(Constants.VALUE_ATTRIBUTE)
+                self.configInfo.append([label, value])
+
+                self.dataPassDictionary[value] = 0
+
+            widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
             self.guiGenerator.createConfigurableGraph(widgetInfo)
         else:
             print("Could not create widget {0}: type {1} not supported".format(title, type))

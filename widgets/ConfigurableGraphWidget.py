@@ -9,7 +9,7 @@ from matplotlib.figure import Figure
 from CustomBaseWidget import *
 from Constants import *
 
-import math, time
+import time
 
 
 class ConfigurableGraphWidget(CustomBaseWidget):
@@ -34,7 +34,10 @@ class ConfigurableGraphWidget(CustomBaseWidget):
         borderwidth = int(configDict[Constants.BORDER_WIDTH_ATTRIBUTE])
         relief = configDict[Constants.RELIEF_ATTRIBUTE]
 
-        # self.configInfo = configDict[Constants.CONFIG_ATTRIBUTE]
+        self.configInfo = configDict[Constants.CONFIG_ATTRIBUTE]
+
+        for i in range(len(self.configInfo)):
+            self.yList.append([])
 
         self.figure = Figure(figsize=(5, 4), dpi=100)
         self.plot = self.figure.add_subplot(111)
@@ -43,24 +46,34 @@ class ConfigurableGraphWidget(CustomBaseWidget):
         self.widget = self.canvas.get_tk_widget()
         self.widget.grid(column=xpos, row=ypos)
 
-        # self.widget.place(x=self.xpos, y=self.ypos)
-
         CustomBaseWidget.__init__(self, self.widget, draggable, xpos, ypos, window, self.title, hidden)
 
     def updateInfo(self, data):
         try:
-            value = data["batteryVoltage"]
+            test = data[self.configInfo[0][1]]
         except:
+            e = sys.exc_info()[0]
+            # print(e)
             return
 
         self.xList.append(time.time())
-        self.yList.append(value)
 
         if len(self.xList) >= 100:
             self.xList.pop(0)
-            self.yList.pop(0)
+            overflow = True
+        else:
+            overflow = False
 
         self.plot.clear()
-        self.plot.plot(self.xList, self.yList)
+        for i in range(len(self.configInfo)):
+            value = data[self.configInfo[i][1]]
+
+            self.yList[i].append(value)
+
+            if overflow:
+                self.yList[i].pop(0)
+
+            self.plot.set_title(self.title)
+            self.plot.plot(self.xList, self.yList[i])
 
         self.canvas.show()
