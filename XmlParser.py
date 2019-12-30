@@ -106,6 +106,8 @@ class XmlParser:
             self.guiGenerator.createVideoWindow(widgetInfo)
         elif type == Constants.COMPASS_TYPE:
             widgetInfo[Constants.SIZE_ATTRIBUTE] = self.getAttribute(widget, Constants.SIZE_ATTRIBUTE, "200")
+            widgetInfo[Constants.SOURCE_ATTRIBUTE] = self.getAttribute(widget, Constants.SOURCE_ATTRIBUTE, "bruh")
+            self.dataPassDictionary[widgetInfo[Constants.SOURCE_ATTRIBUTE]] = 0
             self.guiGenerator.createCompass(widgetInfo)
         else:
             print("Could not create widget {0}: type {1} not supported".format(title, type))

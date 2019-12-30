@@ -10,8 +10,7 @@ from PIL import Image as PILImage
 class SpinnyCompassWidget(CustomBaseWidget):
     configInfo = []
     type = Constants.COMPASS_TYPE
-    heading = 0
-    a = 0
+    lastAngle = 0
     def __init__(self, configDict, window):
         self.window = window
         self.title = configDict[Constants.TITTLE_ATTRIBUTE]
@@ -21,6 +20,7 @@ class SpinnyCompassWidget(CustomBaseWidget):
         self.hidden = configDict[Constants.HIDDEN_ATTRIBUTE]
         self.draggabe = configDict[Constants.DRAGGABLE_ATTRIBUTE]
         self.size = int(configDict[Constants.SIZE_ATTRIBUTE])
+        self.source = configDict[Constants.SOURCE_ATTRIBUTE]
 
         # self.updateInfo(0)
         self.widget = Canvas(self.tab, width=self.size, height=self.size, bg="Black")
@@ -46,8 +46,13 @@ class SpinnyCompassWidget(CustomBaseWidget):
         self.canvas_obj = self.widget.create_image(int(self.size / 2), int(self.size / 2), image=self.arrowTkimage)
 
     def updateInfo(self, data):
-        self.geterateAngledImage(self.a)
-        self.a += 1
+        try:
+            angle = -(90 + float(data[self.source]))
+            if(angle != self.lastAngle):
+                self.geterateAngledImage(self.lastAngle)
+                self.lastAngle = angle
+        except KeyError:
+            pass
 
     def getXMLStuff(self, item):
         tag = ET.SubElement(item, Constants.WIDGET_NAME)
