@@ -17,6 +17,7 @@ class ConfigurableGraphWidget(CustomBaseWidget):
     configInfo = []
     xList = []
     yList = []
+    a = 1
 
     def __init__(self, configDict, window):
         self.window = window
@@ -52,6 +53,14 @@ class ConfigurableGraphWidget(CustomBaseWidget):
         if not self.configInfo[0][1] in data:
             return
 
+        #Don't create and draw plot in same loop, because its too slow
+        if self.a > 0:
+            self.createPlot(data)
+        else:
+            self.drawPlot()
+        self.a *= -1
+
+    def createPlot(self, data):
         legend = []
         self.xList.append(time.time())
 
@@ -75,4 +84,6 @@ class ConfigurableGraphWidget(CustomBaseWidget):
             self.plot.plot(self.xList, self.yList[i])
 
         self.plot.legend(legend, loc='upper left')
+
+    def drawPlot(self):
         self.canvas.show()
