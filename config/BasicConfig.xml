@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <window height="993" title="Probot Control" width="1920">
   <tab title="Dashboard">
-    <widget dimensions="1754.3x993.0" draggable="True" fullscreen="True" hidden="False" lockAspectRatio="True" source="webcam" title="test" type="video" x="82.85" y="0"/>
+    <widget dimensions="800x600" draggable="True" fullscreen="True" hidden="False" lockAspectRatio="True" source="webcam" title="test" type="video" x="82.85" y="0"/>
     <widget draggable="True" hidden="False" size="200" source="spinny" title="Spinny" type="compass" x="1068" y="221"/>
     <widget background="Red" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Yellow" hidden="False" relief="solid" title="Power Stats" type="ConfigurableTextBox" x="500" y="500">
       <line label="Battery Voltage" value="batteryVoltage"/>

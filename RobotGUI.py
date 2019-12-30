@@ -58,9 +58,9 @@ class RobotGUI(threading.Thread):
         # Update all widgets
         for widget in self.allWidgetsList:
             # Check to make sure there is actually data
-            if self.filledDataPass == 0:
+            if self.filledDataPass == 0 or len(self.filledDataPass) == 0:
                 pass
-            elif len(self.filledDataPass) == 0:
+            elif widget.isHidden:
                 pass
             else:
                 widget.updateInfo(self.filledDataPass)

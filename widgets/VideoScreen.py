@@ -97,6 +97,6 @@ class VideoScreen(CustomBaseWidget):
         tag.set(Constants.TYPE_ATTRIBUTE, str(self.type))
 
         tag.set(Constants.SOURCE_ATTRIBUTE, str(self.videoStream))
-        tag.set(Constants.DIMENSIONS_ATTRIBUTE, str(self.width) + "x" + str(self.height))
+        tag.set(Constants.DIMENSIONS_ATTRIBUTE, str(int(self.width)) + "x" + str(int(self.height)))
         tag.set(Constants.FULLSCREEN_ATTRIBUTE, str(self.fullScreen))
         tag.set(Constants.LOCK_ASPECT_RATIO_ATTRIBUTE, str(self.lockAspectRatio))

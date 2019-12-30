@@ -92,7 +92,6 @@ class GUIGenerator:
         self.allWidgetsList.append(SpinnyCompassWidget.SpinnyCompassWidget(widgetInfo, self.window))
 
     def createConfigurableGraph(self, widgetInfo):
-        return
         self.allWidgetsList.append(ConfigurableGraphWidget.ConfigurableGraphWidget(widgetInfo, self.window))
 
     def getGuiTabs(self):

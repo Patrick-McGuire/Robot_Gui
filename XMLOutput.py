@@ -1,12 +1,12 @@
 #!/usr/bin/python
 import xml.etree.ElementTree as ET
-from Constants import *
-from xml.etree import ElementTree
 from xml.dom import minidom
+from xml.etree import ElementTree
+
+from Constants import *
 
 
 class XMLOutput:
-
     def __init__(self, windowInfo, tabInfo, widgetsByTab, filename):
         self.windowInfo = windowInfo
         self.tabInfo = tabInfo
@@ -33,7 +33,11 @@ class XMLOutput:
             items.append(ET.SubElement(self.fileData, Constants.TAB_NAME))
             items[-1].set(Constants.TITTLE_ATTRIBUTE, self.tabInfo[i][0])
             for j in range(len(self.widgetsByTab[i])):
-                self.widgetsByTab[i][j].getXMLStuff(items[-1])
+                try:
+                    self.widgetsByTab[i][j].getXMLStuff(items[-1])
+                except AttributeError as e:
+                    print(e)
+                    print("Can't save {0}: no xml output method".format(self.widgetsByTab[i][j].widgetTittle))
 
     # make pretty!!
     def prettify(self, elem):
