@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import ttk
+from widgets import SpinnyCompassWidget
 from widgets import ConfigurableTextBoxWidget, VideoScreen, VilibilityToggleCheckBoxWidget, ConfigurableGraphWidget
 from Tkinter import *
 from XMLOutput import XMLOutput
@@ -86,6 +87,9 @@ class GUIGenerator:
 
     def createVideoWindow(self, widgetInfo):
         self.allWidgetsList.append(VideoScreen.VideoScreen(widgetInfo, self.window))
+
+    def createCompass(self, widgetInfo):
+        self.allWidgetsList.append(SpinnyCompassWidget.SpinnyCompassWidget(widgetInfo, self.window))
 
     def createConfigurableGraph(self, widgetInfo):
         # return

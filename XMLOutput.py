@@ -39,4 +39,4 @@ class XMLOutput:
     def prettify(self, elem):
         rough_string = ElementTree.tostring(elem, 'utf-8')
         reparsed = minidom.parseString(rough_string)
-        return str(reparsed.toprettyxml(indent="  "))
+        return str(reparsed.toprettyxml(indent="\t"))

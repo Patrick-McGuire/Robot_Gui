@@ -32,7 +32,8 @@ class CustomBaseWidget:
         if (self.hideOnClick):
             self.hide()
         elif(self.draggable):
-            self.widget.lift()
+            # self.widget.lift()
+            Misc.lift(self.widget, aboveThis=None)
             self.toggle = not self.toggle
             if(self.draggable):
                 widget = event.widget
@@ -65,7 +66,8 @@ class CustomBaseWidget:
     def onDragEnd(self, event):
         if(self.draggable):
             try:
-                self.widget.lower(self.allWidgetsList[self.widgetIndex + 1].widget)
+                Misc.lower(self.widget, belowThis=self.allWidgetsList[self.widgetIndex + 1].widget)
+                # self.widget.lower(self.allWidgetsList[self.widgetIndex + 1].widget)
             except TclError:
                 pass
             try:
@@ -75,13 +77,13 @@ class CustomBaseWidget:
                 pass
 
     def hide(self):
-        if(not self.static):
+        if(not self.static and not self.isHidden):
             self.widget.place_forget()
             self.hidderWidget.setState(False)
             self.isHidden = True
 
     def show(self):
-        if(not self.static):
+        if(not self.static and self.isHidden):
             self.widget.grid()
             self.widget.place(x=self.xPos, y=self.yPos)
             self.hidderWidget.setState(True)

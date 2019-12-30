@@ -8,7 +8,7 @@ import time
 
 class ConfigurableTextBoxWidget(CustomBaseWidget):
     configInfo = []
-    type = Constants.CONFIGURABLE_TEXT_BOX
+    type = Constants.CONFIGURABLE_TEXT_BOX_TYPE
 
     def __init__(self, configDict, window):
         self.window = window
