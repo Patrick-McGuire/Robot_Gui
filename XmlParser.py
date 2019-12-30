@@ -6,10 +6,12 @@ from GUIGenerator import GUIGenerator
 
 class XmlParser:
     dataPassDictionary = {}
+    widgesByTab = []
+    tabData = []
     configInfo = []
 
     def __init__(self, filename, window):
-        self.guiGenerator = GUIGenerator(window)
+        self.guiGenerator = GUIGenerator(window, filename)
 
         self.allWidgetsList = []
         self.window = window
@@ -20,19 +22,14 @@ class XmlParser:
         # Turn the file into a xml file
         self.document = xml.dom.minidom.parse(filename)
 
-        # Get the keys for the the data pass dictionary, and insert them in to the dict
-        lines = self.document.getElementsByTagName(Constants.LINE_NAME)
-        for line in lines:
-            value = line.getAttribute(Constants.VALUE_ATTRIBUTE)
-            self.dataPassDictionary[value] = 0
-
         # Get attributes that will apply to the entire window
-        self.guiGenerator.setWindowName(
-            self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(Constants.TITTLE_ATTRIBUTE))
+        self.guiName = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
+            Constants.TITTLE_ATTRIBUTE)
         windowHeight = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
             Constants.HEIGHT_ATTRIBUTE)
         windowWidth = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
             Constants.WIDTH_ATTRIBUTE)
+        self.guiGenerator.setWindowName(self.guiName)
         self.guiGenerator.setWindowSize(windowWidth, windowHeight)
 
         # Get all of the tabs from the file
@@ -41,12 +38,16 @@ class XmlParser:
         # Generate all of the tabs
         for i in range(0, len(tabs)):
             # Add a new tab for every tab in the xml file
-            self.guiGenerator.addTab(tabs[i].getAttribute(Constants.TITTLE_ATTRIBUTE))
+            tabName = tabs[i].getAttribute(Constants.TITTLE_ATTRIBUTE)
+            self.guiGenerator.addTab(tabName)
+            self.tabData.append([tabName])
+            self.widgesByTab.append([])
 
             # Get a list of widgets for the current tab
             widgets = tabs[i].getElementsByTagName(Constants.WIDGET_NAME)
             for widget in widgets:
                 self.createWidget(widget, self.guiGenerator.getGuiTabs()[i + 1])
+                self.widgesByTab[i].append(self.guiGenerator.getAllWidgetsList()[-1])
 
         self.guiGenerator.postInit()
         self.guiGenerator.initTabs()
@@ -89,15 +90,18 @@ class XmlParser:
                 value = line.getAttribute(Constants.VALUE_ATTRIBUTE)
                 self.configInfo.append([label, value])
 
+                self.dataPassDictionary[value] = 0
+
             widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
             self.guiGenerator.createConfigurableTextBox(widgetInfo)
         elif type == Constants.VIDEO_WINDOW_TYPE:
-            lines = widget.getElementsByTagName(Constants.LINE_NAME)
-            for line in lines:
-                value = line.getAttribute(Constants.VALUE_ATTRIBUTE)
-                self.configInfo.append(value)
+            widgetInfo[Constants.SOURCE_ATTRIBUTE] = self.getAttribute(widget, Constants.SOURCE_ATTRIBUTE, "webcam")
+            widgetInfo[Constants.DIMENSIONS_ATTRIBUTE] = self.getAttribute(widget, Constants.DIMENSIONS_ATTRIBUTE, "800x600")
+            widgetInfo[Constants.FULLSCREEN_ATTRIBUTE] = self.getAttribute(widget, Constants.FULLSCREEN_ATTRIBUTE, "False")
+            widgetInfo[Constants.LOCK_ASPECT_RATIO_ATTRIBUTE] = self.getAttribute(widget, Constants.LOCK_ASPECT_RATIO_ATTRIBUTE, "True")
 
-            widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
+            #Define data pass values needed
+            self.dataPassDictionary[widgetInfo[Constants.SOURCE_ATTRIBUTE]] = 0
 
             self.guiGenerator.createVideoWindow(widgetInfo)
         else:
@@ -117,3 +121,12 @@ class XmlParser:
 
     def getConfigInfo(self):
         return self.configInfo
+
+    def getGuiName(self):
+        return self.guiName
+
+    def getTabInfo(self):
+        return self.tabData
+
+    def getWidgesByTab(self):
+        return self.widgesByTab
