@@ -43,12 +43,10 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
 
         for i in range(len(self.configInfo)):
             string += "\n"
-            if data == 0:
-                string += " " + self.configInfo[i][0] + "\t" + "No data "
-            elif len(data) == 0:
-                string += " " + self.configInfo[i][0] + "\t" + "No data "
-            else:
+            try:
                 string += " " + self.configInfo[i][0] + "\t" + str(data[self.configInfo[i][1]]) + " "
+            except:
+                string += " " + self.configInfo[i][0] + "\t" + "No data "
 
         self.nameVar.set(string)
 

@@ -7,6 +7,8 @@
       <line label="5v Bus Voltage" value="v5Voltage"/>
       <line label="3.3v Bus Voltage" value="v33Voltage"/>
       <line label="Current Draw" value="current"/>
+      <line label="Loop Time" value="fullLoopTime"/>
+      <line label="Frame Rate" value="frameRate"/>
     </widget>
     <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Powerasdff Stats" type="ConfigurableTextBox" x="300" y="300"/>
   </tab>

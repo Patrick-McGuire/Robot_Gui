@@ -18,7 +18,7 @@ class RobotGUI(threading.Thread):
 
     def __init__(self, filePath):
         self.filePath = filePath
-        self.frameRate = float(40)
+        self.frameRate = float(60)
         threading.Thread.__init__(self)
         self.start()
 
@@ -45,6 +45,9 @@ class RobotGUI(threading.Thread):
         startTime = time.time()
         fullLoopTime = startTime - self.lastTime
         self.lastTime = startTime
+
+        self.filledDataPass["fullLoopTime"] = int(fullLoopTime*1000)
+        self.filledDataPass["frameRate"] = int(1/fullLoopTime)
 
         #Update info
         try:
@@ -77,6 +80,8 @@ class RobotGUI(threading.Thread):
         if timeDelta < 1:
             timeDelta = 1
 
+
+        print (timeDelta)
         # Set this function to run again
         self.window.after(int(timeDelta), self.updateInfo)
 
