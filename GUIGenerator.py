@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import ttk
-from widgets import ConfigurableTextBoxWidget, VideoScreen, VilibilityToggleCheckBoxWidget, SpinnyCompassWidget
+from widgets import SpinnyCompassWidget
+from widgets import ConfigurableTextBoxWidget, VideoScreen, VilibilityToggleCheckBoxWidget, ConfigurableGraphWidget
 from Tkinter import *
 from XMLOutput import XMLOutput
 import tkFileDialog
@@ -70,6 +71,7 @@ class GUIGenerator:
         self.tab_control.add(self.guiTabs[-1], text=name)
 
     def initTabs(self):
+        # self.tab_control.grid(column=0, row=0)
         self.tab_control.pack(expand=1, fill='both')
 
     # Set the size the window will be when it is opens
@@ -88,6 +90,10 @@ class GUIGenerator:
 
     def createCompass(self, widgetInfo):
         self.allWidgetsList.append(SpinnyCompassWidget.SpinnyCompassWidget(widgetInfo, self.window))
+
+    def createConfigurableGraph(self, widgetInfo):
+        # return
+        self.allWidgetsList.append(ConfigurableGraphWidget.ConfigurableGraphWidget(widgetInfo, self.window))
 
     def getGuiTabs(self):
         return self.guiTabs

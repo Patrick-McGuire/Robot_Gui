@@ -109,6 +109,9 @@ class XmlParser:
             widgetInfo[Constants.SOURCE_ATTRIBUTE] = self.getAttribute(widget, Constants.SOURCE_ATTRIBUTE, "bruh")
             self.dataPassDictionary[widgetInfo[Constants.SOURCE_ATTRIBUTE]] = 0
             self.guiGenerator.createCompass(widgetInfo)
+        elif type == "ConfigurableGraph":
+            #widgetInfo = []
+            self.guiGenerator.createConfigurableGraph(widgetInfo)
         else:
             print("Could not create widget {0}: type {1} not supported".format(title, type))
 
