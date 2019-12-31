@@ -49,8 +49,6 @@ class ConfigurableGraphWidget(CustomBaseWidget):
 
         self.startTime = time.time()
 
-        print(self.configInfo)
-
         CustomBaseWidget.__init__(self, self.widget, draggable, xpos, ypos, window, self.title, hidden)
 
     def updateInfo(self, data):
@@ -69,7 +67,7 @@ class ConfigurableGraphWidget(CustomBaseWidget):
         self.b += 1
 
     def recordData(self, data):
-        self.xList.append(time.time())
+        self.xList.append(time.time()-self.startTime)
 
         if len(self.xList) >= 50:
             self.xList.pop(0)
