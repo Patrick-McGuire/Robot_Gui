@@ -10,11 +10,11 @@ from CustomBaseWidget import *
 
 
 class SpinnyCompassWidget(CustomBaseWidget):
-    configInfo = []
-    type = Constants.COMPASS_TYPE
-    lastAngle = 0
-
     def __init__(self, configDict, window):
+        self.configInfo = []
+        self.type = Constants.COMPASS_TYPE
+        self.lastAngle = 0
+
         self.window = window
         self.title = configDict[Constants.TITTLE_ATTRIBUTE]
         self.tab = configDict[Constants.TAB_ATTRIBUTE]

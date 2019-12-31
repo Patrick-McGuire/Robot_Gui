@@ -9,14 +9,14 @@ from XmlParser import XmlParser
 
 
 class RobotGUI(threading.Thread):
-    filledDataPass = {}
-    dataPassDictionary = {}
-    filePath = ""
-    enable = True
-    count = 0
-    lastTime = 0
-
     def __init__(self, filePath):
+        self.filledDataPass = {}
+        self.dataPassDictionary = {}
+        self.filePath = ""
+        self.enable = True
+        self.count = 0
+        self.lastTime = 0
+
         self.filePath = filePath
         self.frameRate = float(30)
         threading.Thread.__init__(self)

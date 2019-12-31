@@ -4,13 +4,13 @@ from Tkinter import *
 
 
 class CustomBaseWidget:
-    toggle = False
-    toggleTracker = False
-    hideOnClick = False
-    widgetTittle = ""
-    isHidden = False
-
     def __init__(self, widget, draggable, xPos, yPos, window, tittle, hidden, static=False):
+        self.toggle = False
+        self.toggleTracker = False
+        self.hideOnClick = False
+        self.widgetTittle = ""
+        self.isHidden = False
+
         self.window = window
         self.widget = widget
         self.draggable = draggable

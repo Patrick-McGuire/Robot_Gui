@@ -12,15 +12,14 @@ import time
 
 
 class ConfigurableGraphWidget(CustomBaseWidget):
-    widgetTitle = ""
-    configInfo = []
-    xList = []
-    yList = []
-    a = 1
-    data = 0
-    b = 0
-
     def __init__(self, configDict, window):
+        self.configInfo = []
+        self.xList = []
+        self.yList = []
+        self.a = 1
+        self.data = 0
+        self.b = 0
+
         self.window = window
 
         self.title = configDict[Constants.TITTLE_ATTRIBUTE]
@@ -50,10 +49,11 @@ class ConfigurableGraphWidget(CustomBaseWidget):
 
         self.startTime = time.time()
 
+        print(self.configInfo)
+
         CustomBaseWidget.__init__(self, self.widget, draggable, xpos, ypos, window, self.title, hidden)
 
     def updateInfo(self, data):
-        # self.q.put(data)
         if not self.configInfo[0][1] in data:
             return
 
@@ -69,9 +69,9 @@ class ConfigurableGraphWidget(CustomBaseWidget):
         self.b += 1
 
     def recordData(self, data):
-        self.xList.append(time.time()-self.startTime)
+        self.xList.append(time.time())
 
-        if len(self.xList) >= 200:
+        if len(self.xList) >= 50:
             self.xList.pop(0)
             overflow = True
         else:

@@ -1,19 +1,21 @@
 #!/usr/bin/python
 
-from CustomBaseWidget import *
-from Constants import *
-import cv2
-from PIL import Image, ImageTk
 import xml.etree.ElementTree as ET
+from PIL import Image as PILImage
+from PIL import ImageTk
+
+import cv2
+
+from Constants import *
+from CustomBaseWidget import *
 
 
 class VideoScreen(CustomBaseWidget):
-    widgetTitle = ""
-    configInfo = []
-    hasVideoStream = False
-    type = Constants.VIDEO_WINDOW_TYPE
-
     def __init__(self, configDict, window):
+        self.configInfo = []
+        self.hasVideoStream = False
+        self.type = Constants.VIDEO_WINDOW_TYPE
+
         self.window = window
 
         self.title = configDict[Constants.TITTLE_ATTRIBUTE]
@@ -41,7 +43,8 @@ class VideoScreen(CustomBaseWidget):
         self.widget = Label(self.tab)
         self.widget.grid(column=0, row=0)
         self.widget.place(x=self.xpos, y=self.ypos)
-        CustomBaseWidget.__init__(self, self.widget, self.draggable, self.xpos, self.ypos, self.window, self.title, self.hidden, static)
+        CustomBaseWidget.__init__(self, self.widget, self.draggable, self.xpos, self.ypos, self.window, self.title,
+                                  self.hidden, static)
 
     def setDimensions(self, width, height):
         self.width = width
@@ -87,7 +90,7 @@ class VideoScreen(CustomBaseWidget):
 
         frame = cv2.resize(frame, (int(self.width), int(self.height)))
         cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
-        imgtk = ImageTk.PhotoImage(image=Image.fromarray(cv2image))
+        imgtk = ImageTk.PhotoImage(image=PILImage.fromarray(cv2image))
         self.widget.imgtk = imgtk
         self.widget.configure(image=imgtk)
 

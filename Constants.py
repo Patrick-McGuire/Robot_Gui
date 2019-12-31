@@ -39,6 +39,5 @@ class Constants:
     V33_VOLTAGE_VALUE = "v33Voltage"
     CURRENT_VALUE = "current"
 
-
     def __init__(self):
         pass

@@ -8,12 +8,12 @@ import tkFileDialog
 
 
 class GUIGenerator:
-    globalLockedState = True
-    guiTabs = []
-    allWidgetsList = []
-    menueList = []
-
     def __init__(self, window, filePath):
+        self.globalLockedState = True
+        self.guiTabs = []
+        self.allWidgetsList = []
+        self.menueList = []
+
         self.window = window
         self.tab_control = ttk.Notebook(self.window)
 

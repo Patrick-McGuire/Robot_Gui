@@ -7,10 +7,10 @@ from CustomBaseWidget import *
 
 
 class ConfigurableTextBoxWidget(CustomBaseWidget):
-    configInfo = []
-    type = Constants.CONFIGURABLE_TEXT_BOX_TYPE
-
     def __init__(self, configDict, window):
+        self.configInfo = []
+        self.type = Constants.CONFIGURABLE_TEXT_BOX_TYPE
+
         self.window = window
         self.title = configDict[Constants.TITTLE_ATTRIBUTE]
         self.tab = configDict[Constants.TAB_ATTRIBUTE]

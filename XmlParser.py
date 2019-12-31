@@ -1,16 +1,17 @@
 #!/usr/bin/python
 import xml.dom.minidom
+
 from Constants import *
 from GUIGenerator import GUIGenerator
 
 
 class XmlParser:
-    dataPassDictionary = {}
-    widgesByTab = []
-    tabData = []
-    configInfo = []
-
     def __init__(self, filename, window):
+        self.dataPassDictionary = {}
+        self.widgesByTab = []
+        self.tabData = []
+        self.configInfo = []
+
         self.guiGenerator = GUIGenerator(window, filename)
 
         self.allWidgetsList = []
@@ -96,11 +97,15 @@ class XmlParser:
             self.guiGenerator.createConfigurableTextBox(widgetInfo)
         elif type == Constants.VIDEO_WINDOW_TYPE:
             widgetInfo[Constants.SOURCE_ATTRIBUTE] = self.getAttribute(widget, Constants.SOURCE_ATTRIBUTE, "webcam")
-            widgetInfo[Constants.DIMENSIONS_ATTRIBUTE] = self.getAttribute(widget, Constants.DIMENSIONS_ATTRIBUTE, "800x600")
-            widgetInfo[Constants.FULLSCREEN_ATTRIBUTE] = self.getAttribute(widget, Constants.FULLSCREEN_ATTRIBUTE, "False")
-            widgetInfo[Constants.LOCK_ASPECT_RATIO_ATTRIBUTE] = self.getAttribute(widget, Constants.LOCK_ASPECT_RATIO_ATTRIBUTE, "True")
+            widgetInfo[Constants.DIMENSIONS_ATTRIBUTE] = self.getAttribute(widget, Constants.DIMENSIONS_ATTRIBUTE,
+                                                                           "800x600")
+            widgetInfo[Constants.FULLSCREEN_ATTRIBUTE] = self.getAttribute(widget, Constants.FULLSCREEN_ATTRIBUTE,
+                                                                           "False")
+            widgetInfo[Constants.LOCK_ASPECT_RATIO_ATTRIBUTE] = self.getAttribute(widget,
+                                                                                  Constants.LOCK_ASPECT_RATIO_ATTRIBUTE,
+                                                                                  "True")
 
-            #Define data pass values needed
+            # Define data pass values needed
             self.dataPassDictionary[widgetInfo[Constants.SOURCE_ATTRIBUTE]] = 0
 
             self.guiGenerator.createVideoWindow(widgetInfo)
