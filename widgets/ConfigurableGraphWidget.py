@@ -8,7 +8,6 @@ from matplotlib.figure import Figure
 
 from CustomBaseWidget import *
 from Constants import *
-
 import time
 
 
@@ -18,6 +17,8 @@ class ConfigurableGraphWidget(CustomBaseWidget):
     xList = []
     yList = []
     a = 1
+    data = 0
+    b = 0
 
     def __init__(self, configDict, window):
         self.window = window
@@ -47,39 +48,48 @@ class ConfigurableGraphWidget(CustomBaseWidget):
         self.widget = self.canvas.get_tk_widget()
         self.widget.grid(column=xpos, row=ypos)
 
+        self.startTime = time.time()
+
         CustomBaseWidget.__init__(self, self.widget, draggable, xpos, ypos, window, self.title, hidden)
 
     def updateInfo(self, data):
+        # self.q.put(data)
         if not self.configInfo[0][1] in data:
             return
 
-        #Don't create and draw plot in same loop, because its too slow
-        if self.a > 0:
-            self.createPlot(data)
-        else:
-            self.drawPlot()
-        self.a *= -1
+        self.recordData(data)
 
-    def createPlot(self, data):
-        legend = []
-        self.xList.append(time.time())
+        if self.b % 2 == 0:
+            # Don't create and draw plot in same loop, because its too slow
+            if self.a > 0:
+                self.createPlot()
+            else:
+                self.drawPlot()
+            self.a *= -1
+        self.b += 1
 
-        if len(self.xList) >= 100:
+    def recordData(self, data):
+        self.xList.append(time.time()-self.startTime)
+
+        if len(self.xList) >= 200:
             self.xList.pop(0)
             overflow = True
         else:
             overflow = False
 
-        self.plot.clear()
         for i in range(len(self.configInfo)):
             value = data[self.configInfo[i][1]]
-            legend.append(self.configInfo[i][0])
 
             self.yList[i].append(value)
 
             if overflow:
                 self.yList[i].pop(0)
 
+    def createPlot(self):
+        legend = []
+
+        self.plot.clear()
+        for i in range(len(self.configInfo)):
             self.plot.set_title(self.title)
             self.plot.plot(self.xList, self.yList[i])
 

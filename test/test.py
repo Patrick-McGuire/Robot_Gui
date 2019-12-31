@@ -26,7 +26,7 @@ canvas = Canvas(root, width=600, height=600, bg="Black")
 make_draggable(canvas)
 canvas.grid(column=0, row=0)
 
-image1 = Image2.open('Assets/compas.png').resize((600, 600), Image2.ANTIALIAS)
+image1 = Image2.open('Assets/compass.png').resize((600, 600), Image2.ANTIALIAS)
 tkimage1 = ImageTk.PhotoImage(image1)
 canvas_obj1 = canvas.create_image(300, 300, image=tkimage1)
 

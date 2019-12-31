@@ -53,6 +53,10 @@ class VideoScreen(CustomBaseWidget):
             return
 
         frame = data[self.videoStream]
+
+        if type(frame) == int:
+            return
+
         self.hasVideoStream = True
         self.displayImage(frame)
 

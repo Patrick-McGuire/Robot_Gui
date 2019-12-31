@@ -1,16 +1,19 @@
 #!/usr/bin/python
 
-from CustomBaseWidget import *
-from Constants import *
+import os
 import xml.etree.ElementTree as ET
-from PIL import ImageTk
 from PIL import Image as PILImage
+from PIL import ImageTk
+
+from Constants import *
+from CustomBaseWidget import *
 
 
 class SpinnyCompassWidget(CustomBaseWidget):
     configInfo = []
     type = Constants.COMPASS_TYPE
     lastAngle = 0
+
     def __init__(self, configDict, window):
         self.window = window
         self.title = configDict[Constants.TITTLE_ATTRIBUTE]
@@ -22,6 +25,14 @@ class SpinnyCompassWidget(CustomBaseWidget):
         self.size = int(configDict[Constants.SIZE_ATTRIBUTE])
         self.source = configDict[Constants.SOURCE_ATTRIBUTE]
 
+        self.filePath = os.path.dirname(os.path.realpath(__file__))
+
+        shortFilePath = list(self.filePath)
+        for i in range(len(shortFilePath) - 1, 0, -1):
+            if shortFilePath.pop(i) == "/":
+                break
+        self.filePath = "".join(shortFilePath)
+
         # self.updateInfo(0)
         self.widget = Canvas(self.tab, width=self.size, height=self.size, bg="Black")
         self.createBaseImages()
@@ -29,14 +40,17 @@ class SpinnyCompassWidget(CustomBaseWidget):
         self.widget.grid(column=0, row=0)
         self.widget.place(x=self.xpos, y=self.ypos)
 
-        CustomBaseWidget.__init__(self, self.widget, self.draggabe, self.xpos, self.ypos, window, configDict[Constants.TITTLE_ATTRIBUTE], self.hidden)
+        CustomBaseWidget.__init__(self, self.widget, self.draggabe, self.xpos, self.ypos, window,
+                                  configDict[Constants.TITTLE_ATTRIBUTE], self.hidden)
 
     def createBaseImages(self):
-        self.compassImage = PILImage.open('Assets/compas.png').resize((self.size, self.size), PILImage.ANTIALIAS)
+        self.compassImage = PILImage.open(self.filePath + '/Assets/compass.png').resize((self.size, self.size),
+                                                                                       PILImage.ANTIALIAS)
         self.compassTkimage = ImageTk.PhotoImage(self.compassImage)
-        self.compassCanvas_obj1 = self.widget.create_image(int(self.size / 2), int(self.size / 2), image=self.compassTkimage)
+        self.compassCanvas_obj1 = self.widget.create_image(int(self.size / 2), int(self.size / 2),
+                                                           image=self.compassTkimage)
 
-        self.arrowImage = PILImage.open('Assets/arrow.png')
+        self.arrowImage = PILImage.open(self.filePath + '/Assets/arrow.png')
         self.arrowImage = self.arrowImage.resize((int(self.size * 2.5), int(self.size * 1.25)), PILImage.ANTIALIAS)
         self.arrowTkimage = ImageTk.PhotoImage(self.arrowImage.rotate(0))
         self.canvas_obj = self.widget.create_image(int(self.size / 2), int(self.size / 2), image=self.arrowTkimage)
@@ -48,7 +62,7 @@ class SpinnyCompassWidget(CustomBaseWidget):
     def updateInfo(self, data):
         try:
             angle = -(90 + float(data[self.source]))
-            if(angle != self.lastAngle):
+            if (angle != self.lastAngle):
                 self.geterateAngledImage(self.lastAngle)
                 self.lastAngle = angle
         except KeyError:
@@ -64,5 +78,3 @@ class SpinnyCompassWidget(CustomBaseWidget):
         tag.set(Constants.TYPE_ATTRIBUTE, str(self.type))
         tag.set(Constants.SIZE_ATTRIBUTE, str(self.size))
         tag.set(Constants.SOURCE_ATTRIBUTE, str(self.source))
-
-

@@ -22,9 +22,10 @@
     </widget>
 
     <widget draggable="True" hidden="False" title="ConfigurableGraph" type="ConfigurableGraph" x="300" y="300">
-      <line label="Battery Voltage" value="batteryVoltage"/>
+      <!--line label="Battery Voltage" value="batteryVoltage"/>
       <line label="5v Bus Voltage2" value="v5Voltage"/>
-      <line label="Spinny" value="spinny"/>
+      <line label="Spinny" value="spinny"/-->
+      <line label="Framerate" value="frameRate"/>
     </widget>
 
     <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Po1werasdff Stats" type="ConfigurableTextBox" x="300" y="300"/>
