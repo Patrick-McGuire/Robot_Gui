@@ -15,8 +15,8 @@ class XMLOutput:
         self.getWindowStartTag()
         self.getTabTags()
 
-        myfile = open(filename, "w")
-        myfile.write(self.prettify(self.fileData))
+        outFile = open(filename, "w")
+        outFile.write(self.cleanUp(self.fileData))
 
     def getWindowStartTag(self):
         self.guiName = self.windowInfo[0]
@@ -39,8 +39,8 @@ class XMLOutput:
                     print(e)
                     print("Can't save {0}: no xml output method".format(self.widgetsByTab[i][j].widgetTittle))
 
-    # make pretty!!
-    def prettify(self, elem):
+    def cleanUp(self, elem):
+        """Make data pretty"""
         rough_string = ElementTree.tostring(elem, 'utf-8')
         reparsed = minidom.parseString(rough_string)
         return str(reparsed.toprettyxml(indent="\t"))

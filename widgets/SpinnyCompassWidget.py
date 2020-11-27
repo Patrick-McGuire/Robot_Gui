@@ -18,10 +18,10 @@ class SpinnyCompassWidget(CustomBaseWidget):
         self.window = window
         self.title = configDict[Constants.TITTLE_ATTRIBUTE]
         self.tab = configDict[Constants.TAB_ATTRIBUTE]
-        self.xpos = configDict[Constants.X_POS_ATTRIBUTE]
-        self.ypos = configDict[Constants.Y_POS_ATTRIBUTE]
+        self.xPos = configDict[Constants.X_POS_ATTRIBUTE]
+        self.yPos = configDict[Constants.Y_POS_ATTRIBUTE]
         self.hidden = configDict[Constants.HIDDEN_ATTRIBUTE]
-        self.draggabe = configDict[Constants.DRAGGABLE_ATTRIBUTE]
+        self.draggable = configDict[Constants.DRAGGABLE_ATTRIBUTE]
         self.size = int(configDict[Constants.SIZE_ATTRIBUTE])
         self.source = configDict[Constants.SOURCE_ATTRIBUTE]
 
@@ -38,17 +38,14 @@ class SpinnyCompassWidget(CustomBaseWidget):
         self.createBaseImages()
 
         self.widget.grid(column=0, row=0)
-        self.widget.place(x=self.xpos, y=self.ypos)
+        self.widget.place(x=self.xPos, y=self.yPos)
 
-        CustomBaseWidget.__init__(self, self.widget, self.draggabe, self.xpos, self.ypos, window,
-                                  configDict[Constants.TITTLE_ATTRIBUTE], self.hidden)
+        CustomBaseWidget.__init__(self, self.widget, self.draggable, self.xPos, self.yPos, window, configDict[Constants.TITTLE_ATTRIBUTE], self.hidden)
 
     def createBaseImages(self):
-        self.compassImage = PILImage.open(self.filePath + '/Assets/compass.png').resize((self.size, self.size),
-                                                                                       PILImage.ANTIALIAS)
+        self.compassImage = PILImage.open(self.filePath + '/Assets/compass.png').resize((self.size, self.size), PILImage.ANTIALIAS)
         self.compassTkimage = ImageTk.PhotoImage(self.compassImage)
-        self.compassCanvas_obj1 = self.widget.create_image(int(self.size / 2), int(self.size / 2),
-                                                           image=self.compassTkimage)
+        self.compassCanvas_obj1 = self.widget.create_image(int(self.size / 2), int(self.size / 2), image=self.compassTkimage)
 
         self.arrowImage = PILImage.open(self.filePath + '/Assets/arrow.png')
         self.arrowImage = self.arrowImage.resize((int(self.size * 2.5), int(self.size * 1.25)), PILImage.ANTIALIAS)

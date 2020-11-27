@@ -36,8 +36,8 @@ class GUIGenerator:
                                                                               self.window,
                                                                               self.allWidgetsList[i].widgetTittle,
                                                                               self.allWidgetsList[i], i))
-            self.allWidgetsList[i].setHidderWidget(self.allWidgetsList[-1])
-            self.allWidgetsList[i].setAllWidsList(self.allWidgetsList)
+            self.allWidgetsList[i].setHiddenWidget(self.allWidgetsList[-1])
+            self.allWidgetsList[i].setAllWidgetsList(self.allWidgetsList)
 
         # Menu stuff
         basicMenue = [["Lock All Widgets", self.lockAllWidgets], ["Unlock All Widgets", self.unlockAllWidgets],
@@ -144,5 +144,5 @@ class GUIGenerator:
     def saveXML(self, filepathy):
         windoInfo = [self.parser.getGuiName(), self.window.winfo_width(), self.window.winfo_height()]
         tabData = self.parser.getTabInfo()
-        widgetsByTab = self.parser.getWidgesByTab()
+        widgetsByTab = self.parser.getWidgetsByTab()
         XMLOutput(windoInfo, tabData, widgetsByTab, self.filePath)

@@ -8,7 +8,7 @@ from GUIGenerator import GUIGenerator
 class XmlParser:
     def __init__(self, filename, window):
         self.dataPassDictionary = {}
-        self.widgesByTab = []
+        self.widgetsByTab = []
         self.tabData = []
         self.configInfo = []
 
@@ -42,28 +42,28 @@ class XmlParser:
             tabName = tabs[i].getAttribute(Constants.TITTLE_ATTRIBUTE)
             self.guiGenerator.addTab(tabName)
             self.tabData.append([tabName])
-            self.widgesByTab.append([])
+            self.widgetsByTab.append([])
 
             # Get a list of widgets for the current tab
             widgets = tabs[i].getElementsByTagName(Constants.WIDGET_NAME)
             for widget in widgets:
                 self.createWidget(widget, self.guiGenerator.getGuiTabs()[i + 1])
-                self.widgesByTab[i].append(self.guiGenerator.getAllWidgetsList()[-1])
+                self.widgetsByTab[i].append(self.guiGenerator.getAllWidgetsList()[-1])
 
         self.guiGenerator.postInit()
         self.guiGenerator.initTabs()
 
     def createWidget(self, widget, tab):
-        title = self.getAttribute(widget, Constants.TITTLE_ATTRIBUTE, "Error: no tittle")
+        title = self.getAttribute(widget, Constants.TITTLE_ATTRIBUTE, "Error: no title")
         font = self.getAttribute(widget, Constants.FONT_ATTRIBUTE, "Arial")
         fontSize = self.getAttribute(widget, Constants.FONT_SIZE_ATTRIBUTE, "20")
-        xpos = self.getAttribute(widget, Constants.X_POS_ATTRIBUTE, "0")
-        ypos = self.getAttribute(widget, Constants.Y_POS_ATTRIBUTE, "0")
+        xPos = self.getAttribute(widget, Constants.X_POS_ATTRIBUTE, "0")
+        yPos = self.getAttribute(widget, Constants.Y_POS_ATTRIBUTE, "0")
         foregroundColor = self.getAttribute(widget, Constants.FOREGROUND_ATTRIBUTE, "Black")
         backgroundColor = self.getAttribute(widget, Constants.BACKGROUND_ATTRIBUTE, "Light Grey")
         hidden = self.getAttribute(widget, Constants.HIDDEN_ATTRIBUTE, "False") == "True"
         draggable = self.getAttribute(widget, Constants.DRAGGABLE_ATTRIBUTE, "True") == "True"
-        borderwidth = self.getAttribute(widget, Constants.BORDER_WIDTH_ATTRIBUTE, "4")
+        borderWidth = self.getAttribute(widget, Constants.BORDER_WIDTH_ATTRIBUTE, "4")
         relief = self.getAttribute(widget, Constants.RELIEF_ATTRIBUTE, "raised")
 
         widgetInfo = {
@@ -71,20 +71,20 @@ class XmlParser:
             Constants.FONT_ATTRIBUTE: font,
             Constants.TAB_ATTRIBUTE: tab,
             Constants.FONT_SIZE_ATTRIBUTE: fontSize,
-            Constants.X_POS_ATTRIBUTE: xpos,
-            Constants.Y_POS_ATTRIBUTE: ypos,
+            Constants.X_POS_ATTRIBUTE: xPos,
+            Constants.Y_POS_ATTRIBUTE: yPos,
             Constants.HIDDEN_ATTRIBUTE: hidden,
             Constants.DRAGGABLE_ATTRIBUTE: draggable,
             Constants.FOREGROUND_ATTRIBUTE: foregroundColor,
             Constants.BACKGROUND_ATTRIBUTE: backgroundColor,
-            Constants.BORDER_WIDTH_ATTRIBUTE: borderwidth,
+            Constants.BORDER_WIDTH_ATTRIBUTE: borderWidth,
             Constants.RELIEF_ATTRIBUTE: relief
         }
 
         # Code to handle specific types of widgets
         self.configInfo = []
-        type = widget.getAttribute(Constants.TYPE_ATTRIBUTE)
-        if type == Constants.CONFIGURABLE_TEXT_BOX_TYPE:
+        widgetType = widget.getAttribute(Constants.TYPE_ATTRIBUTE)
+        if widgetType == Constants.CONFIGURABLE_TEXT_BOX_TYPE:
             lines = widget.getElementsByTagName(Constants.LINE_NAME)
             for line in lines:
                 label = line.getAttribute(Constants.LABEL_ATTRIBUTE)
@@ -95,26 +95,22 @@ class XmlParser:
 
             widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
             self.guiGenerator.createConfigurableTextBox(widgetInfo)
-        elif type == Constants.VIDEO_WINDOW_TYPE:
+        elif widgetType == Constants.VIDEO_WINDOW_TYPE:
             widgetInfo[Constants.SOURCE_ATTRIBUTE] = self.getAttribute(widget, Constants.SOURCE_ATTRIBUTE, "webcam")
-            widgetInfo[Constants.DIMENSIONS_ATTRIBUTE] = self.getAttribute(widget, Constants.DIMENSIONS_ATTRIBUTE,
-                                                                           "800x600")
-            widgetInfo[Constants.FULLSCREEN_ATTRIBUTE] = self.getAttribute(widget, Constants.FULLSCREEN_ATTRIBUTE,
-                                                                           "False")
-            widgetInfo[Constants.LOCK_ASPECT_RATIO_ATTRIBUTE] = self.getAttribute(widget,
-                                                                                  Constants.LOCK_ASPECT_RATIO_ATTRIBUTE,
-                                                                                  "True")
+            widgetInfo[Constants.DIMENSIONS_ATTRIBUTE] = self.getAttribute(widget, Constants.DIMENSIONS_ATTRIBUTE, "800x600")
+            widgetInfo[Constants.FULLSCREEN_ATTRIBUTE] = self.getAttribute(widget, Constants.FULLSCREEN_ATTRIBUTE, "False")
+            widgetInfo[Constants.LOCK_ASPECT_RATIO_ATTRIBUTE] = self.getAttribute(widget, Constants.LOCK_ASPECT_RATIO_ATTRIBUTE, "True")
 
             # Define data pass values needed
             self.dataPassDictionary[widgetInfo[Constants.SOURCE_ATTRIBUTE]] = 0
 
             self.guiGenerator.createVideoWindow(widgetInfo)
-        elif type == Constants.COMPASS_TYPE:
+        elif widgetType == Constants.COMPASS_TYPE:
             widgetInfo[Constants.SIZE_ATTRIBUTE] = self.getAttribute(widget, Constants.SIZE_ATTRIBUTE, "200")
             widgetInfo[Constants.SOURCE_ATTRIBUTE] = self.getAttribute(widget, Constants.SOURCE_ATTRIBUTE, "bruh")
             self.dataPassDictionary[widgetInfo[Constants.SOURCE_ATTRIBUTE]] = 0
             self.guiGenerator.createCompass(widgetInfo)
-        elif type == "ConfigurableGraph":
+        elif widgetType == "ConfigurableGraph":
             lines = widget.getElementsByTagName(Constants.LINE_NAME)
             for line in lines:
                 label = line.getAttribute(Constants.LABEL_ATTRIBUTE)
@@ -126,7 +122,7 @@ class XmlParser:
             widgetInfo[Constants.CONFIG_ATTRIBUTE] = self.configInfo
             self.guiGenerator.createConfigurableGraph(widgetInfo)
         else:
-            print("Could not create widget {0}: type {1} not supported".format(title, type))
+            print("Could not create widget {0}: type {1} not supported".format(title, widgetType))
 
     def getAttribute(self, xmlClip, attribute, default):
         data = xmlClip.getAttribute(attribute)
@@ -149,5 +145,5 @@ class XmlParser:
     def getTabInfo(self):
         return self.tabData
 
-    def getWidgesByTab(self):
-        return self.widgesByTab
+    def getWidgetsByTab(self):
+        return self.widgetsByTab

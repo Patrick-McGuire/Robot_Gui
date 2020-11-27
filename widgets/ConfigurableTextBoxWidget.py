@@ -16,13 +16,13 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
         self.tab = configDict[Constants.TAB_ATTRIBUTE]
         self.font = configDict[Constants.FONT_ATTRIBUTE]
         self.fontSize = int(configDict[Constants.FONT_SIZE_ATTRIBUTE])
-        self.xpos = configDict[Constants.X_POS_ATTRIBUTE]
-        self.ypos = configDict[Constants.Y_POS_ATTRIBUTE]
+        self.xPos = configDict[Constants.X_POS_ATTRIBUTE]
+        self.yPos = configDict[Constants.Y_POS_ATTRIBUTE]
         self.hidden = configDict[Constants.HIDDEN_ATTRIBUTE]
-        self.draggabe = configDict[Constants.DRAGGABLE_ATTRIBUTE]
+        self.draggable = configDict[Constants.DRAGGABLE_ATTRIBUTE]
         self.foregroundColor = configDict[Constants.FOREGROUND_ATTRIBUTE]
         self.backgroundColor = configDict[Constants.BACKGROUND_ATTRIBUTE]
-        self.borderwidth = int(configDict[Constants.BORDER_WIDTH_ATTRIBUTE])
+        self.borderWidth = int(configDict[Constants.BORDER_WIDTH_ATTRIBUTE])
         self.relief = configDict[Constants.RELIEF_ATTRIBUTE]
 
         self.configInfo = configDict[Constants.CONFIG_ATTRIBUTE]
@@ -30,13 +30,10 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
         self.nameVar = StringVar()
         self.updateInfo(0)
 
-        self.widget = Label(self.tab, textvariable=self.nameVar, borderwidth=self.borderwidth, relief=self.relief,
-                            background=self.backgroundColor, foreground=self.foregroundColor,
-                            font=(self.font, self.fontSize))
+        self.widget = Label(self.tab, textvariable=self.nameVar, borderwidth=self.borderWidth, relief=self.relief, background=self.backgroundColor, foreground=self.foregroundColor, font=(self.font, self.fontSize))
         self.widget.grid(column=0, row=0)
-        self.widget.place(x=self.xpos, y=self.ypos)
-        CustomBaseWidget.__init__(self, self.widget, self.draggabe, self.xpos, self.ypos, window,
-                                  configDict[Constants.TITTLE_ATTRIBUTE], self.hidden)
+        self.widget.place(x=self.xPos, y=self.yPos)
+        CustomBaseWidget.__init__(self, self.widget, self.draggable, self.xPos, self.yPos, window, configDict[Constants.TITTLE_ATTRIBUTE], self.hidden)
 
     def updateInfo(self, data):
         string = self.title
@@ -63,7 +60,7 @@ class ConfigurableTextBoxWidget(CustomBaseWidget):
         tag.set(Constants.BACKGROUND_ATTRIBUTE, str(self.backgroundColor))
         tag.set(Constants.FOREGROUND_ATTRIBUTE, str(self.foregroundColor))
         tag.set(Constants.RELIEF_ATTRIBUTE, str(self.relief))
-        tag.set(Constants.BORDER_WIDTH_ATTRIBUTE, str(self.borderwidth))
+        tag.set(Constants.BORDER_WIDTH_ATTRIBUTE, str(self.borderWidth))
         tag.set(Constants.HIDDEN_ATTRIBUTE, str(self.isHidden))
         tag.set(Constants.DRAGGABLE_ATTRIBUTE, str(self.draggable))
         tag.set(Constants.TYPE_ATTRIBUTE, str(self.type))

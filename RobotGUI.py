@@ -41,7 +41,7 @@ class RobotGUI(threading.Thread):
         self.enable = False
 
     def updateInfo(self):
-        # Framerate measurer
+        # Frame rate measurer
         startTime = time.time()
         fullLoopTime = startTime - self.lastTime
         self.lastTime = startTime
@@ -72,7 +72,7 @@ class RobotGUI(threading.Thread):
                     self.enable = False
                     self.window.destroy()
 
-        # Framerate controller
+        # Frame rate controller
         desiredLoopTime = 1 / self.frameRate
         currentTime = time.time()
         loopTime = currentTime - startTime

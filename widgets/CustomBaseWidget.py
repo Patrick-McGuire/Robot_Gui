@@ -48,13 +48,13 @@ class CustomBaseWidget:
                 x = widget.winfo_x() - widget._drag_start_x + event.x
                 y = widget.winfo_y() - widget._drag_start_y + event.y
 
-                if (x > self.window.winfo_width() - self.widget.winfo_width()):
+                if x > self.window.winfo_width() - self.widget.winfo_width():
                     x = self.window.winfo_width() - self.widget.winfo_width()
-                if (x < 0):
+                if x < 0:
                     x = 0
-                if (y > self.window.winfo_height() - self.widget.winfo_height() - 25):
+                if y > self.window.winfo_height() - self.widget.winfo_height() - 25:
                     y = self.window.winfo_height() - self.widget.winfo_height() - 25
-                if (y < 0):
+                if y < 0:
                     y = 0
 
                 self.xPos = x
@@ -79,14 +79,14 @@ class CustomBaseWidget:
     def hide(self):
         if not self.static and not self.isHidden:
             self.widget.place_forget()
-            self.hidderWidget.setState(False)
+            self.hiddenWidget.setState(False)
             self.isHidden = True
 
     def show(self):
         if not self.static and self.isHidden:
             self.widget.grid()
             self.widget.place(x=self.xPos, y=self.yPos)
-            self.hidderWidget.setState(True)
+            self.hiddenWidget.setState(True)
             self.isHidden = False
 
     def dragOn(self):
@@ -95,12 +95,12 @@ class CustomBaseWidget:
     def dragOff(self):
         self.draggable = False
 
-    def setHidderWidget(self, hidderWidget):
-        self.hidderWidget = hidderWidget
+    def setHiddenWidget(self, hiddenWidget):
+        self.hiddenWidget = hiddenWidget
         if self.hidden:
             self.hide()
 
-    def setAllWidsList(self, allWidgetsList):
+    def setAllWidgetsList(self, allWidgetsList):
         self.allWidgetsList = allWidgetsList
         self.widgetIndex = 0
         for i in range(len(self.allWidgetsList)):
