@@ -2,56 +2,58 @@
 import xml.dom.minidom
 
 from Constants import *
-from GUIGenerator import GUIGenerator
 
 
 class XmlParser:
-    def __init__(self, filename, window):
+    def __init__(self):
+        # Local vars
+        self.document = None
+        # Data pulled from the file
+        self.guiName = ""
+        self.tabNames = []
+        self.widgetInfo = []
+
         self.dataPassDict = {}
-        self.widgesByTab = []
-        self.tabData = []
-        self.configInfo = []
 
-        self.guiGenerator = GUIGenerator(window, filename)
-
-        self.allWidgetsList = []
-        self.window = window
-
-        # Init the gui (add settings tab, do other things)
-        self.guiGenerator.preInit()
-
-        # Turn the file into a xml file
-        self.document = xml.dom.minidom.parse(filename)
-
+    def pullWindowInfo(self, document):
         # Get attributes that will apply to the entire window
-        self.guiName = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
+        self.guiName = document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
             Constants.TITTLE_ATTRIBUTE)
-        windowHeight = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
+        windowHeight = document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
             Constants.HEIGHT_ATTRIBUTE)
-        windowWidth = self.document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
+        windowWidth = document.getElementsByTagName(Constants.WINDOW_NAME)[0].getAttribute(
             Constants.WIDTH_ATTRIBUTE)
-        self.guiGenerator.setWindowName(self.guiName)
-        self.guiGenerator.setWindowSize(windowWidth, windowHeight)
 
-        # Get all of the tabs from the file
-        tabs = self.document.getElementsByTagName(Constants.TAB_NAME)
+    def pullTabInfo(self, document):
+        tabs = self.document.getElementsByTagName(Constants.TAB_NAME)  # Get all of the tabs from the xml file
+        for tab in tabs:                                  # Loop though all the tabs
+            self.tabNames.append(tab.getAttribute(Constants.TITTLE_ATTRIBUTE))   # Add the name to the list
+            self.pullWidgetInfo(tab)
 
-        # Generate all of the tabs
-        for i in range(0, len(tabs)):
-            # Add a new tab for every tab in the xml file
-            tabName = tabs[i].getAttribute(Constants.TITTLE_ATTRIBUTE)
-            self.guiGenerator.addTab(tabName)
-            self.tabData.append([tabName])
-            self.widgesByTab.append([])
+    def pullWidgetInfo(self, tab):
+        widgets = tab.getElementsByTagName(Constants.WIDGET_NAME)
+        for widget in widgets:
+            widgetInfo = {
+                Constants.TITTLE_ATTRIBUTE: self.getAttribute(widget, Constants.TITTLE_ATTRIBUTE, "Error: no tittle"),
+                Constants.FONT_ATTRIBUTE: self.getAttribute(widget, Constants.FONT_ATTRIBUTE, "Arial"),
+                Constants.TAB_ATTRIBUTE: tab.getAttribute(Constants.TITTLE_ATTRIBUTE),
+                Constants.FONT_SIZE_ATTRIBUTE: self.getAttribute(widget, Constants.FONT_SIZE_ATTRIBUTE, "20"),
+                Constants.X_POS_ATTRIBUTE: self.getAttribute(widget, Constants.X_POS_ATTRIBUTE, "0"),
+                Constants.Y_POS_ATTRIBUTE: self.getAttribute(widget, Constants.Y_POS_ATTRIBUTE, "0"),
+                Constants.HIDDEN_ATTRIBUTE: self.getAttribute(widget, Constants.HIDDEN_ATTRIBUTE, "False") == "True",
+                Constants.DRAGGABLE_ATTRIBUTE: self.getAttribute(widget, Constants.DRAGGABLE_ATTRIBUTE, "True") == "True",
+                Constants.FOREGROUND_ATTRIBUTE: self.getAttribute(widget, Constants.FOREGROUND_ATTRIBUTE, "Black"),
+                Constants.BACKGROUND_ATTRIBUTE: self.getAttribute(widget, Constants.BACKGROUND_ATTRIBUTE, "Light Grey"),
+                Constants.BORDER_WIDTH_ATTRIBUTE: self.getAttribute(widget, Constants.BORDER_WIDTH_ATTRIBUTE, "4"),
+                Constants.RELIEF_ATTRIBUTE: self.getAttribute(widget, Constants.RELIEF_ATTRIBUTE, "raised")
+            }
 
-            # Get a list of widgets for the current tab
-            widgets = tabs[i].getElementsByTagName(Constants.WIDGET_NAME)
-            for widget in widgets:
-                self.createWidget(widget, self.guiGenerator.getGuiTabs()[i + 1])
-                self.widgesByTab[i].append(self.guiGenerator.getAllWidgetsList()[-1])
 
-        self.guiGenerator.postInit()
-        self.guiGenerator.initTabs()
+    def parse(self, filename):
+        # Parse the XML file
+        self.document = xml.dom.minidom.parse(filename)            # Turn the file into a xml file
+        self.pullWindowInfo(self.document)                         # Get attributes for the entire window
+        self.pullTabInfo(self.document)                            # Get all of the name of tabs
 
     def createWidget(self, widget, tab):
         title = self.getAttribute(widget, Constants.TITTLE_ATTRIBUTE, "Error: no tittle")

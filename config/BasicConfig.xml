@@ -35,20 +35,5 @@
     </widget>
 
     <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Po1werasdff Stats" type="ConfigurableTextBox" x="300" y="800"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Pow2erasdff Stats" type="ConfigurableTextBox" x="310" y="810"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Powe3rasdff Stats" type="ConfigurableTextBox" x="319" y="820"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Power4asdff Stats" type="ConfigurableTextBox" x="822" y="810"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Powera5sdff Stats" type="ConfigurableTextBox" x="657" y="800"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Poweras6dff Stats" type="ConfigurableTextBox" x="338" y="800"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Poweras6dff Stats" type="ConfigurableTextBox" x="350" y="800"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Powerasd7ff Stats" type="ConfigurableTextBox" x="360" y="800"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Powerasdff Stats" type="ConfigurableTextBox" x="370" y="800"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Po1werasdff Stats" type="ConfigurableTextBox" x="380" y="800"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Pow2erasdff Stats" type="ConfigurableTextBox" x="390" y="800"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Powe3rasdff Stats" type="ConfigurableTextBox" x="400" y="800"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Power4asdff Stats" type="ConfigurableTextBox" x="410" y="800"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Powera5sdff Stats" type="ConfigurableTextBox" x="420" y="800"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Poweras6dff Stats" type="ConfigurableTextBox" x="430" y="800"/>
-    <widget background="Light Grey" borderwidth="4" draggable="True" font="Arial" fontsize="20" foreground="Black" hidden="False" relief="raised" title="Powerasd7ff Stats" type="ConfigurableTextBox" x="440" y="800"/>
   </tab>
 </window>

@@ -5,37 +5,33 @@ import threading
 import time
 from Tkinter import TclError
 
-from XmlParser import XmlParser
 
-
-class RobotGUI(threading.Thread):
-    def __init__(self, filePath):
-        self.filledDataPass = {}
-        self.dataPassDictionary = {}
-        self.filePath = ""
+class GUILowLevel(threading.Thread):
+    def __init__(self, filePath, frameRate):
+        self.dataPassDict = {}
         self.enable = True
-        self.count = 0
         self.lastTime = 0
 
         self.filePath = filePath
-        self.frameRate = float(30)
+        self.frameRate = float(frameRate)
         threading.Thread.__init__(self)
         self.start()
 
     def run(self):
-        # Init the window
-        self.window = Tkinter.Tk()
-        self.window.minsize(100, 100)
+        # Create the window
+        self.window = Tkinter.Tk()         # Create a Tkinter object
+        self.window.minsize(100, 100)      # Set the minimum size the window can be
 
+        # Create all the widgets
         self.parser = XmlParser(self.filePath, self.window)
         self.parser.guiGenerator.setParser(self.parser)
         self.allWidgetsList = self.parser.getAllWidgetsList()
         self.dataPassDictionary = self.parser.getDataPassDictionary()
 
-        self.window.after(100, self.updateInfo)
-
-        self.window.protocol("WM_DELETE_WINDOW", self.onClosing)
-        self.window.mainloop()
+        # Window flow control
+        self.window.after(100, self.updateInfo)                       # Give it a function to run to update the window
+        self.window.protocol("WM_DELETE_WINDOW", self.onClosing)      # Tell it what to do when you close the window
+        self.window.mainloop()                                        # Create the window
 
     def onClosing(self):
         self.enable = False
@@ -84,7 +80,8 @@ class RobotGUI(threading.Thread):
         self.window.after(int(timeDelta), self.updateInfo)
 
     def getDataPassDictionary(self):
-        return self.dataPassDictionary
+        return self.dataPassDict
 
     def setDataPassDictionary(self, data):
-        self.filledDataPass = data
+        self.dataPassDict = data
+
